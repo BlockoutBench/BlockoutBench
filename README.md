@@ -13,7 +13,9 @@
 
 ## 快速开始（桌面版）
 
-* **绿色免安装桌面包（若包内已附带 `关卡工作台.exe`）**：直接双击根目录 **`关卡工作台.exe`** 即可本地离线运行，无需额外安装浏览器或 Node。
+* **直接下载 Windows 免安装桌面包（推荐）**：
+  - 👉 **[一键下载 `BlockoutBench_Windows_x64.zip`（含 `关卡工作台.exe`）](https://github.com/BlockoutBench/BlockoutBench/releases/latest/download/BlockoutBench_Windows_x64.zip)**（或前往 [Releases 页面](https://github.com/BlockoutBench/BlockoutBench/releases/latest) 查看版本说明与校验值）
+  - 完整解压后，直接双击根目录 **`关卡工作台.exe`** 即可本地离线运行，无需额外安装浏览器或 Node。
 * **源码包自行构建桌面版（若包内仅含源码）**：
   ```bash
   cd desktop
