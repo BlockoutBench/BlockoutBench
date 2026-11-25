@@ -1,6 +1,12 @@
-# 关卡工作台 · Level Workbench（桌面版）
+# BlockoutBench（白盒图台）· Level Workbench
 
-把一份关卡布局 JSON 画成 2D 平面图和 3D 模型，自动检查结构错误，并把节奏、撤离、机关连通这些“凭感觉”的东西量化出来。适合关卡策划评审方案，也适合给 AI 出图当“考官”。本发布包仅提供**本地离线桌面版**（不提供网页/HTTP 服务版）。
+[![Download Windows x64](https://img.shields.io/github/v/release/BlockoutBench/BlockoutBench?label=Download%20Windows%20x64&color=2ea44f)](https://github.com/BlockoutBench/BlockoutBench/releases/latest/download/BlockoutBench_Windows_x64.zip)
+[![License](https://img.shields.io/badge/License-Noncommercial-blue)](#许可证)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x64%20Desktop-lightgrey)](https://github.com/BlockoutBench/BlockoutBench/releases/latest)
+
+**BlockoutBench（白盒图台）** 本质上是一套面向 AI 智能体的白盒关卡规范，同时配有一款轻便的桌面工具，帮助 AI 在关卡设计流程中更好地理解空间意图，尽量减少浮空、穿模与意义不明的缝隙等幻觉。本发布包仅提供**本地离线桌面版**（不提供网页/HTTP 服务版）。
+
+> **English Summary**: **BlockoutBench** is an AI-native level blockout specification paired with a lightweight offline 2D/3D desktop viewer (Electron + Three.js). Instead of letting AI agents jump straight into a heavy game engine, you can prototype, validate 63 structural & playability rules, inspect pacing/heatmaps, and export whitebox packages for Unreal Engine. 👉 **[Download Windows x64 Portable](https://github.com/BlockoutBench/BlockoutBench/releases/latest/download/BlockoutBench_Windows_x64.zip)**
 
 - **看图**：2D 示意 / 平面图两种画法，3D 透视与俯览，多楼层、跨层楼梯与路线。
 - **挑错**：63 条结构与可玩性规则（门比角色窄、路线擦着障碍、敌人卡墙、楼梯接错层……），桌面端与命令行结果一致，点一条问题跳到出问题的位置。
@@ -67,6 +73,8 @@ python tools/check_all.py --no-browser   # 只跑数据层
 ```
 
 修改约定见 [AGENTS.md](AGENTS.md)（人和 AI 编程助手都适用）。
+
+> **维护说明**：本项目仍处于早期阶段，主要贴合个人习惯与 UE 工作流；当前由作者本人独立维护，暂不直接合并外部 PR，欢迎按非商业协议下载自用或自行 Fork 进行深度定制。
 
 ## 许可证
 
