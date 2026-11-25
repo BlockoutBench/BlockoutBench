@@ -1,0 +1,90 @@
+# BlockoutBench · Level Workbench
+
+[![Download Windows x64](https://img.shields.io/github/v/release/BlockoutBench/BlockoutBench?label=Download%20Windows%20x64&color=2ea44f)](https://github.com/BlockoutBench/BlockoutBench/releases/latest/download/BlockoutBench_Windows_x64.zip)
+[![License](https://img.shields.io/badge/License-Noncommercial-blue)](#license)
+[![Platform](https://img.shields.io/badge/Platform-Windows%20x64%20Desktop-lightgrey)](https://github.com/BlockoutBench/BlockoutBench/releases/latest)
+
+[中文](README.md) | **English**
+
+**BlockoutBench** is an AI-native level blockout specification paired with a lightweight offline desktop viewer. It helps AI agents understand spatial design intent during level design, reducing common spatial hallucinations such as floating geometry, clipping, and unexplained gaps. This release provides **the offline desktop application only** (no web/HTTP server mode).
+
+- **Visualize**: Two 2D modes (schematic & floor plan), 3D perspective & overview, multi-floor layouts, stairs, and traversal routes.
+- **Validate**: 63 structural and playability checks (door narrower than character width, routes grazing obstacles, enemies stuck in walls, mismatched stair floors, etc.) with identical results in the desktop UI and CLI; click any issue to jump straight to it.
+- **Quantify**: Main-path pacing curves, pressure heatmaps, walking distance to extraction, and room statistics.
+- **Mechanisms**: Floating props, movable blocks, open/closed doors & gates, trigger link lines, distance-based proximity connectivity, and live state switching.
+- **Review**: Measurement tools, annotations, version diffing, link sharing, SVG export, and Unreal Engine whitebox package export.
+- **Work with AI**: A single-file kit lets any AI generate compliant maps; auto-validates on import; converts review annotations into AI revision prompts; and compares revisions side-by-side.
+
+See [FEATURES.md](FEATURES.md) for the complete feature list.
+
+## Quick Start (Desktop)
+
+* **Download the portable Windows x64 package (Recommended)**:
+  - 👉 **[Download `BlockoutBench_Windows_x64.zip` (includes `关卡工作台.exe`)](https://github.com/BlockoutBench/BlockoutBench/releases/latest/download/BlockoutBench_Windows_x64.zip)** (or visit the [Releases page](https://github.com/BlockoutBench/BlockoutBench/releases/latest) for release notes & SHA-256 checksum).
+  - Extract the full archive and double-click **`关卡工作台.exe`** in the root folder to run offline—no browser or Node.js installation required.
+* **Build from source (if you cloned the repo without binaries)**:
+  ```bash
+  cd desktop
+  npm install
+  npm start
+  ```
+  To build the root launcher `关卡工作台.exe`, install Visual Studio C++ Build Tools and run `python tools/build_exe.py` from the repository root.
+
+**First launch**: Four built-in sample maps are preloaded automatically (defaulting to the Feature Tour showcase). Walk through them alongside [FEATURES.md](FEATURES.md) to explore every capability; if you clear the list, you can reload them anytime via **"Open Built-in Samples…"** in the left panel.
+
+## Adding Your Own Maps
+
+- **Quick preview**: Click **"Open JSON"** in the left panel, drag a `.json` file into the window, or use **"Paste AI JSON"**. Structural errors are rejected with clear diagnostics, and opened files hot-reload when modified on disk.
+- **Add to built-in samples**: Place your file in `maps/`, add `{ "key": "...", "file": "maps/xxx.json" }` to `maps/manifest.json`, and run `python tools/build.py`.
+- **Generate with AI**: Pass [AI_MAP_KIT.md](AI_MAP_KIT.md) to any AI—it bundles the design guide, schema spec, examples, and prompt templates. Validate outputs with `python tools/validate_ai_map.py my-map.json` and iterate until there are 0 errors and 0 warnings.
+
+Specification references: [AI_MAP_SPEC.md](AI_MAP_SPEC.md) · [AI_MAP_SPEC.schema.json](AI_MAP_SPEC.schema.json) · [AI_GUIDE.md](AI_GUIDE.md).
+
+## Built-in Sample Maps
+
+| Map | Purpose |
+|---|---|
+| `maps/showcase.json` | Complete feature tour covering all capabilities alongside `FEATURES.md` |
+| `AI_MAP_SAMPLE.json` | Minimal complete example and reference output for AI generation |
+| `maps/sample-multifloor.json` | Multi-floor layout, stair orientations, open-air rooms, cross-floor routes |
+| `maps/sample-mechanisms.json` | Minimal example of mechanisms, states, and proximity connectivity |
+
+## Repository Structure
+
+| Path | Role |
+|---|---|
+| `desktop/`, `关卡工作台.exe` | Electron desktop shell and Windows one-click launcher |
+| `index.html`, `workbench.js`, `workbench-3d.js`, `workbench.css` | Desktop renderer views (2D / 3D / UI styles) |
+| `map-geometry.js` | Shared 2D/3D geometry, distance fields, proximity checks, relative layout & snap-to-fit |
+| `map-validate.js`, `tools/validate_ai_map.py` | Dual parity-checked validators (Desktop / CLI) |
+| `viewer-pacing.js` | Pacing & pressure curve calculation |
+| `maps/`, `maps.js` | Sample maps and manifest (`maps.js` is generated by `tools/build.py`) |
+| `AI_MAP_KIT.md`, `AI_GUIDE.html`, `AI_MAP_SPEC.html` | Generated artifacts; run `python tools/build.py` after editing sources |
+| `tools/` | Build, validation, launcher build, regression tests, UE import/export & selection bridge, benchmark scoring |
+| `benchmark/` | AI level-generation benchmark tasks and scoring scripts |
+| `vendor/three.min.js` | three.js r128 |
+
+## Development & Testing
+
+```bash
+npm install                              # Only needed for Playwright UI regression tests
+python tools/check_all.py                # Build + validate all maps + parity check + UI regression
+python tools/check_all.py --no-browser   # Data & validator checks only
+```
+
+See [AGENTS.md](AGENTS.md) for editing conventions (applies to both humans and AI coding assistants).
+
+> **Maintenance Note**: This project is still at an early stage and closely tailored to personal habits and Unreal Engine workflows. It is currently maintained solely by the author—external PRs are not merged by default, though you are welcome to download it for non-commercial use or fork it for your own customization.
+
+## License
+
+Required Notice: Copyright 2026 关卡形态要乐奈 (lchm2th@foxmail.com)
+
+This project is **free for non-commercial use**: anyone may download, use, modify, and share it, provided the notice above and license terms are retained and it is not used for commercial purposes.
+
+- Code: PolyForm Noncommercial 1.0.0
+- Documentation, specifications, sample maps, and images: CC BY-NC 4.0
+
+**Commercial use** (including use within a company or commercial project, developing commercial games, or integrating into commercial products) requires separate authorization. Contact: 关卡形态要乐奈 · <lchm2th@foxmail.com>.
+
+See [LICENSE.md](LICENSE.md) for full terms and [THIRD_PARTY_NOTICES.md](THIRD_PARTY_NOTICES.md) for third-party notices.
