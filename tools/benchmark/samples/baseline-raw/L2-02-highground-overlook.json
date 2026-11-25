@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L2-02 双层高台 · Baseline Raw (全封闭无敞边 + 缺楼梯bottom)",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 26, "maxZ": 26 },
+    "provenance": { "kind": "design", "label": "baseline-raw", "source": "L2-02", "generatedAt": "2026-11-13" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 3.8 },
+    { "id": "2F", "name": "2F", "elevation": 3.8, "height": 3.4 }
+  ],
+  "rooms": [
+    { "id": "r_1f_hall", "name": "底层主大厅", "kind": "hall", "status": "planned", "floorId": "1F", "points": [[2, 2], [16, 2], [16, 16], [2, 16]] },
+    { "id": "r_1f_side", "name": "底层密室", "kind": "room", "status": "planned", "floorId": "1F", "points": [[16, 2], [24, 2], [24, 10], [16, 10]] },
+    { "id": "r_2f_balcony", "name": "二层全封闭走廊", "kind": "gallery", "status": "planned", "floorId": "2F", "points": [[2, 2], [16, 2], [16, 8], [2, 8]] },
+    { "id": "r_2f_watch", "name": "二层瞭望室", "kind": "room", "status": "planned", "floorId": "2F", "points": [[2, 8], [10, 8], [10, 16], [2, 16]] }
+  ],
+  "doors": [
+    { "id": "d_1f_side", "name": "密室门", "floorId": "1F", "points": [[16, 5], [16, 7]], "width": 2.0 },
+    { "id": "d_2f_watch", "name": "瞭望门", "floorId": "2F", "points": [[5, 8], [7, 8]], "width": 2.0 }
+  ],
+  "stairs": [
+    { "id": "st_up", "name": "高台阶梯", "fromFloorId": "1F", "toFloorId": "2F", "points": [[3, 3], [8, 3], [8, 6], [3, 6]] }
+  ],
+  "objects": [],
+  "enemies": [],
+  "routes": [
+    { "id": "rt_main", "name": "主线", "kind": "main", "floorId": "1F", "points": [[14, 13, 0], [4, 4.5, 0], [8, 4.5, 3.8], [6, 12, 3.8]] }
+  ]
+}

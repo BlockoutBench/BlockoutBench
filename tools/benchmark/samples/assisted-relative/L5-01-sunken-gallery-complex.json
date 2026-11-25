@@ -1,0 +1,92 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L5-01 三层非矩形中庭与立体交火综合体 · Assisted Relative",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 40, "maxZ": 38 },
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L5-01", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "B1", "name": "B1 地下蓄水与地窖", "elevation": -3.6, "height": 3.6 },
+    { "id": "1F", "name": "1F 展廊与露天中庭", "elevation": 0, "height": 3.8 },
+    { "id": "2F", "name": "2F 俯瞰回廊与圣坛", "elevation": 3.8, "height": 3.8 }
+  ],
+  "rooms": [
+    { "id": "r_1f_foyer", "name": "入口前厅", "kind": "entry", "floorId": "1F", "status": "planned", "points": [[2, 2], [10, 2], [10, 10], [2, 10]] },
+    { "id": "r_1f_court", "name": "中央露天中庭", "kind": "courtyard", "floorId": "1F", "status": "planned", "wallHeight": 0, "points": [[10, 2], [26, 2], [26, 18], [10, 18]] },
+    { "id": "r_1f_west_wing", "name": "西翼L形展廊", "kind": "gallery", "floorId": "1F", "status": "planned", "points": [[2, 10], [10, 10], [10, 28], [4, 28], [4, 20], [2, 20]] },
+    { "id": "r_1f_north_hall", "name": "北侧连廊大厅", "kind": "hall", "floorId": "1F", "status": "planned", "points": [[10, 18], [26, 18], [26, 28], [10, 28]] },
+    { "id": "r_1f_east_wing", "name": "东翼长廊", "kind": "corridor", "floorId": "1F", "status": "planned", "points": [[26, 2], [36, 2], [36, 28], [26, 28]] },
+    { "id": "r_1f_extract", "name": "北东撤离坪", "kind": "exit", "floorId": "1F", "status": "planned", "points": [[26, 28], [36, 28], [36, 35], [26, 35]] },
+    { "id": "r_b1_cistern", "name": "地下蓄水池", "kind": "room", "floorId": "B1", "status": "planned", "points": [[14, 18], [26, 18], [26, 26], [14, 26]] },
+    { "id": "r_b1_crypt", "name": "西地下秘库", "kind": "vault", "floorId": "B1", "status": "planned", "points": [[4, 18], [14, 18], [14, 26], [4, 26]] },
+    { "id": "r_2f_overlook_l", "name": "二层L形俯瞰回廊", "kind": "gallery", "floorId": "2F", "status": "planned", "openEdges": [0, 1], "points": [[10, 14], [22, 14], [22, 2], [26, 2], [26, 18], [10, 18]] },
+    { "id": "r_2f_sanctum", "name": "二层圣坛Boss厅", "kind": "boss", "floorId": "2F", "status": "planned", "points": [[14, 18], [26, 18], [26, 28], [14, 28]] },
+    { "id": "r_2f_loft", "name": "二层东阁楼", "kind": "room", "floorId": "2F", "status": "planned", "points": [[26, 18], [36, 18], [36, 28], [26, 28]] }
+  ],
+  "doors": [
+    { "id": "d_foyer_court", "name": "前厅-中庭门", "floorId": "1F", "points": [[10, 5], [10, 7]], "width": 2.0 },
+    { "id": "d_foyer_west", "name": "前厅-西翼门", "floorId": "1F", "points": [[5, 10], [7, 10]], "width": 2.0 },
+    { "id": "d_west_north", "name": "西翼-北厅门", "floorId": "1F", "points": [[10, 25], [10, 27]], "width": 2.0 },
+    { "id": "d_court_north", "name": "中庭-北厅门", "floorId": "1F", "points": [[19, 18], [21, 18]], "width": 2.2 },
+    { "id": "d_court_east", "name": "中庭-东翼门", "floorId": "1F", "points": [[26, 8], [26, 10]], "width": 2.0 },
+    { "id": "d_north_east", "name": "北厅-东翼门", "floorId": "1F", "points": [[26, 21], [26, 23]], "width": 2.0 },
+    { "id": "d_east_exit", "name": "东翼-撤离门", "floorId": "1F", "points": [[30, 28], [32, 28]], "width": 2.4 },
+    { "id": "d_b1_crypt", "name": "秘库铁门", "floorId": "B1", "points": [[14, 21], [14, 23]], "width": 2.0 },
+    { "id": "d_2f_sanctum", "name": "圣坛正门", "floorId": "2F", "points": [[19, 18], [21, 18]], "width": 2.4 },
+    { "id": "d_2f_loft", "name": "圣坛-阁楼门", "floorId": "2F", "points": [[26, 21], [26, 23]], "width": 2.0 }
+  ],
+  "stairs": [
+    { "id": "st_1f_b1", "name": "下地窖阶梯", "fromFloorId": "B1", "toFloorId": "1F", "bottom": "W", "points": [[15, 22.5], [19.5, 22.5], [19.5, 25], [15, 25]] },
+    { "id": "st_1f_2f_e", "name": "东庭登二层阶梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "S", "points": [[22.5, 4], [25.5, 4], [25.5, 10], [22.5, 10]] },
+    { "id": "st_2f_1f_loft", "name": "东阁楼返一层阶梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "N", "points": [[30, 19], [33, 19], [33, 25], [30, 25]] }
+  ],
+  "water": [
+    { "id": "w_b1_pool", "name": "地下蓄水池水体", "kind": "pool", "floorId": "B1", "points": [[21, 19], [25, 19], [25, 25], [21, 25]] }
+  ],
+  "objects": [
+    { "id": "o_foyer_desk", "name": "前厅接待台", "kind": "desk", "floorId": "1F", "solid": true, "points": [[3, 4], [5, 4], [5, 5.5], [3, 5.5]] },
+    { "id": "o_west_disp_1", "name": "西廊展台A", "kind": "display", "floorId": "1F", "solid": true, "points": [[6.5, 13.5], [8, 13.5], [8, 15.5], [6.5, 15.5]] },
+    { "id": "o_west_disp_2", "name": "西廊展台B", "kind": "display", "floorId": "1F", "solid": true, "points": [[6, 20], [7.5, 20], [7.5, 22], [6, 22]] },
+    { "id": "o_court_fountain", "name": "中庭石泉座", "kind": "fountain", "floorId": "1F", "solid": true, "points": [[15, 9], [18, 9], [18, 12], [15, 12]] },
+    { "id": "o_east_cover_1", "name": "东翼货箱", "kind": "cover", "floorId": "1F", "solid": true, "height": 1.1, "points": [[28.5, 12], [30.5, 12], [30.5, 14], [28.5, 14]] },
+    { "id": "o_b1_col", "name": "蓄水池石柱", "kind": "column", "floorId": "B1", "solid": true, "points": [[16, 19], [17.5, 19], [17.5, 20.5], [16, 20.5]] },
+    { "id": "o_b1_relic", "name": "地下圣遗物", "kind": "artifact", "floorId": "B1", "solid": true, "points": [[5.5, 21], [7, 21], [7, 22.5], [5.5, 22.5]] },
+    { "id": "o_2f_balcony_col", "name": "回廊掩体柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[15, 15.2], [16.2, 15.2], [16.2, 16.4], [15, 16.4]] },
+    { "id": "o_sanctum_col_1", "name": "圣坛西柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[16, 20.5], [17.2, 20.5], [17.2, 21.7], [16, 21.7]] },
+    { "id": "o_sanctum_col_2", "name": "圣坛东柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[22.8, 20.5], [24, 20.5], [24, 21.7], [22.8, 21.7]] },
+    { "id": "o_extract_beacon", "name": "撤离信标", "kind": "extract", "floorId": "1F", "solid": false, "points": [[30, 31], [32, 31], [32, 33], [30, 33]] }
+  ],
+  "enemies": [
+    { "id": "e_west_guard", "name": "西廊巡卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_1f_west_wing", "center": [5.5, 17] },
+    { "id": "e_court_sentry", "name": "中庭游侠", "enemyType": "ranged", "tier": "normal", "branch": "optional", "floorId": "1F", "roomId": "r_1f_court", "center": [13.5, 7.5] },
+    { "id": "e_east_elite", "name": "东翼重卫", "enemyType": "elite", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "r_1f_east_wing", "center": [33, 8] },
+    { "id": "e_b1_warden", "name": "地窖守墓者", "enemyType": "elite", "tier": "elite", "branch": "optional", "floorId": "B1", "roomId": "r_b1_crypt", "center": [9, 22] },
+    { "id": "e_2f_archer", "name": "高台弩手", "enemyType": "ranged", "tier": "normal", "branch": "main", "floorId": "2F", "roomId": "r_2f_overlook_l", "center": [12.5, 16] },
+    { "id": "e_2f_boss", "name": "圣坛总督", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "2F", "roomId": "r_2f_sanctum", "center": [20, 25] }
+  ],
+  "routes": [
+    {
+      "id": "rt_main",
+      "name": "主线推进",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [[6, 4, 0], [6, 10, 0], [5, 16, 0], [5, 26, 0], [10, 26, 0], [22, 26, 0], [22, 16, 0], [24, 12, 0], [24, 4, 0], [24, 10, 3.8], [24, 16, 3.8], [17.5, 16, 3.8], [20, 18, 3.8], [20, 23, 3.8], [26, 22, 3.8], [31.5, 19, 3.8], [31.5, 25, 0]]
+    },
+    {
+      "id": "rt_opt_b1",
+      "name": "地下秘库支线",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [[19.5, 24, 0], [15, 24, -3.6], [14, 22, -3.6], [7.5, 22, -3.6]]
+    },
+    {
+      "id": "rt_exit",
+      "name": "阁楼撤离路线",
+      "kind": "exit",
+      "floorId": "1F",
+      "points": [[31.5, 25, 0], [31, 28, 0], [31, 32, 0]]
+    }
+  ]
+}

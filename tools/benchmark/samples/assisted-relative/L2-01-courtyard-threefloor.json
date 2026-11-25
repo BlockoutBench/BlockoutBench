@@ -1,0 +1,43 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L2-01 三层中庭 · Assisted Relative",
+    "units": "m",
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L2-01", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 },
+    { "id": "2F", "name": "2F", "elevation": 3.6, "height": 3.6 },
+    { "id": "3F", "name": "3F", "elevation": 7.2, "height": 3.6 }
+  ],
+  "rooms": [
+    { "id": "r_1f_court", "name": "一层露天中庭", "kind": "courtyard", "floorId": "1F", "wallHeight": 0, "size": [14, 14], "attach": { "at": [9, 9] } },
+    { "id": "r_1f_hall", "name": "一层北侧祭殿", "kind": "hall", "floorId": "1F", "size": [14, 8], "attach": "northOf:r_1f_court" },
+    { "id": "r_2f_gallery", "name": "二层L形挑空回廊", "kind": "gallery", "floorId": "2F", "status": "planned", "openEdges": [0, 1], "points": [[2, 12], [12, 12], [12, 2], [16, 2], [16, 16], [2, 16]] },
+    { "id": "r_2f_west", "name": "二层北廊", "kind": "room", "floorId": "2F", "size": [14, 8], "attach": "northOf:r_2f_gallery" },
+    { "id": "r_3f_sanctum", "name": "三层圣坛", "kind": "boss", "floorId": "3F", "status": "planned", "points": [[2, 16], [16, 16], [16, 24], [2, 24]] }
+  ],
+  "doors": [
+    { "id": "d_1f", "name": "祭殿大门", "between": ["r_1f_court", "r_1f_hall"], "at": 0.5, "width": 2.4 },
+    { "id": "d_2f", "name": "二层北门", "between": ["r_2f_gallery", "r_2f_west"], "at": 0.5, "width": 2.0 }
+  ],
+  "stairs": [
+    { "id": "st_1_2", "name": "一上二阶梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "S", "points": [[12.5, 4], [15.5, 4], [15.5, 10], [12.5, 10]] },
+    { "id": "st_2_3", "name": "二上三阶梯", "fromFloorId": "2F", "toFloorId": "3F", "bottom": "S", "points": [[3.5, 17], [6.5, 17], [6.5, 22], [3.5, 22]] }
+  ],
+  "objects": [
+    { "id": "o_pool_statue", "name": "中庭碑座", "kind": "altar", "floorId": "1F", "solid": true, "points": [[6, 6], [8, 6], [8, 8], [6, 8]] },
+    { "id": "o_hall_relic", "name": "祭殿石案", "kind": "altar", "floorId": "1F", "solid": true, "points": [[13, 18], [14.8, 18], [14.8, 19.8], [13, 19.8]] },
+    { "id": "o_boss_altar", "name": "顶层圣坛", "kind": "altar", "floorId": "3F", "solid": true, "points": [[8, 19], [10, 19], [10, 21], [8, 21]] }
+  ],
+  "enemies": [
+    { "id": "e_1f", "name": "中庭守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_1f_court", "center": [5, 10] },
+    { "id": "e_hall_opt", "name": "祭殿祭司", "enemyType": "ranged", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "r_1f_hall", "center": [9, 20.5] },
+    { "id": "e_3f", "name": "圣坛首领", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "3F", "roomId": "r_3f_sanctum", "center": [12.5, 20.5] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "三层攀登主线", "kind": "main", "floorId": "1F", "points": [[4, 4, 0], [10, 4, 0], [14, 4, 0], [14, 10, 3.6], [14, 14, 3.6], [9, 14, 3.6], [9, 16, 3.6], [5, 17, 3.6], [5, 22, 7.2], [11, 22, 7.2]] },
+    { "id": "rt_hall", "name": "一层祭殿支线", "kind": "optional", "floorId": "1F", "points": [[9, 12, 0], [9, 16, 0], [11, 19, 0]] }
+  ]
+}

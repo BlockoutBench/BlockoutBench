@@ -1,0 +1,51 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L3-01 双锁零死锁 · Assisted Relative",
+    "units": "m",
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L3-01", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [{ "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 }],
+  "rooms": [
+    { "id": "r_hub", "name": "中枢前厅", "kind": "entry", "floorId": "1F", "size": [10, 10], "attach": { "at": [15, 7] } },
+    { "id": "r_west", "name": "西侧配电室", "kind": "puzzle", "floorId": "1F", "size": [8, 8], "attach": "westOf:r_hub" },
+    { "id": "r_east", "name": "东侧钟室", "kind": "puzzle", "floorId": "1F", "size": [8, 8], "attach": "eastOf:r_hub" },
+    { "id": "r_vault", "name": "封锁宝库", "kind": "vault", "floorId": "1F", "size": [10, 8], "attach": "northOf:r_hub" }
+  ],
+  "doors": [
+    { "id": "d_west", "name": "西门", "between": ["r_hub", "r_west"], "at": 0.5, "width": 2.0 },
+    { "id": "d_east", "name": "东门（待解锁）", "between": ["r_hub", "r_east"], "at": 0.5, "width": 2.0, "initial": "closed" },
+    { "id": "d_vault", "name": "宝库大门（双锁）", "between": ["r_hub", "r_vault"], "at": 0.5, "width": 2.4, "initial": "closed" }
+  ],
+  "objects": [
+    { "id": "o_sw_1", "name": "一号电闸", "kind": "interaction", "floorId": "1F", "solid": false, "points": [[3.5, 6.5], [5, 6.5], [5, 8], [3.5, 8]] },
+    { "id": "o_west_pillar", "name": "西室石柱", "kind": "column", "floorId": "1F", "solid": true, "height": 3.6, "points": [[6.5, 4], [7.8, 4], [7.8, 5.2], [6.5, 5.2]] },
+    { "id": "o_sw_2", "name": "二号共鸣钟", "kind": "interaction", "floorId": "1F", "solid": false, "points": [[24, 6.5], [25.5, 6.5], [25.5, 8], [24, 8]] },
+    {
+      "id": "o_gate_seal",
+      "name": "宝库石封",
+      "kind": "stone-gate",
+      "floorId": "1F",
+      "height": 3.6,
+      "initialState": "sealed",
+      "states": [
+        { "id": "sealed", "label": "封锁", "solid": true, "present": true },
+        { "id": "open", "label": "已开", "solid": false, "present": false }
+      ],
+      "points": [[13.5, 11.7], [16.5, 11.7], [16.5, 12.3], [13.5, 12.3]]
+    },
+    { "id": "o_vault_treasure", "name": "宝库秘匣", "kind": "loot", "floorId": "1F", "solid": true, "height": 0.8, "points": [[14, 17], [16, 17], [16, 18.5], [14, 18.5]] }
+  ],
+  "links": [
+    { "id": "lk_east_door", "name": "一号闸开东门", "trigger": "activated", "from": ["o_sw_1"], "to": [{ "id": "d_east", "state": "open" }] },
+    { "id": "lk_vault_door", "name": "双开关开宝库", "trigger": "activated", "require": "all", "from": ["o_sw_1", "o_sw_2"], "to": [{ "id": "d_vault", "state": "open" }, { "id": "o_gate_seal", "state": "open" }] }
+  ],
+  "enemies": [
+    { "id": "e_west", "name": "配电守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_west", "center": [5.5, 9.5] },
+    { "id": "e_vault_guard", "name": "宝库守卫长", "enemyType": "elite", "tier": "elite", "branch": "main", "floorId": "1F", "roomId": "r_vault", "center": [15, 15.5] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "双锁主线", "kind": "main", "floorId": "1F", "points": [[15, 4], [15, 7], [6, 7], [15, 7], [24.5, 7], [15, 7], [15, 16]] }
+  ]
+}

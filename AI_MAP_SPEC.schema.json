@@ -1,0 +1,403 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://level-workbench.local/AI_MAP_SPEC.schema.json",
+  "title": "AI 关卡设计交换格式 v1",
+  "type": "object",
+  "required": ["schemaVersion", "meta", "floors", "rooms", "routes"],
+  "properties": {
+    "schemaVersion": { "const": 1 },
+    "meta": { "$ref": "#/$defs/meta" },
+    "floors": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/floor" }
+    },
+    "rooms": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/room" }
+    },
+    "objects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/object" }
+    },
+    "enemies": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/enemy" }
+    },
+    "doors": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/door" }
+    },
+    "stairs": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/stairs" }
+    },
+    "water": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/water" }
+    },
+    "routes": {
+      "type": "array",
+      "minItems": 1,
+      "items": { "$ref": "#/$defs/route" }
+    },
+    "links": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/link" }
+    },
+    "reviewNotes": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/reviewNote" }
+    }
+  },
+  "$defs": {
+    "id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]*$"
+    },
+    "point": {
+      "type": "array",
+      "prefixItems": [{ "type": "number" }, { "type": "number" }],
+      "minItems": 2,
+      "maxItems": 2
+    },
+    "routePoint": {
+      "type": "array",
+      "prefixItems": [{ "type": "number" }, { "type": "number" }, { "type": "number" }],
+      "minItems": 2,
+      "maxItems": 3,
+      "description": "[x, z] or [x, z, y]; y = absolute elevation in metres for cross-floor routes"
+    },
+    "line": {
+      "type": "array",
+      "minItems": 2,
+      "items": { "$ref": "#/$defs/routePoint" }
+    },
+    "polygon": {
+      "type": "array",
+      "minItems": 3,
+      "items": { "$ref": "#/$defs/point" }
+    },
+    "bounds": {
+      "type": "object",
+      "required": ["minX", "minZ", "maxX", "maxZ"],
+      "properties": {
+        "minX": { "type": "number" },
+        "minZ": { "type": "number" },
+        "maxX": { "type": "number" },
+        "maxZ": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "player": {
+      "type": "object",
+      "required": ["radius", "height", "walkSpeed", "rollDistance", "rollDuration", "interactionRange"],
+      "properties": {
+        "radius": { "type": "number", "exclusiveMinimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "walkSpeed": { "type": "number", "exclusiveMinimum": 0 },
+        "rollDistance": { "type": "number", "minimum": 0 },
+        "rollDuration": { "type": "number", "exclusiveMinimum": 0 },
+        "interactionRange": { "type": "number", "exclusiveMinimum": 0 }
+      },
+      "additionalProperties": false
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["kind", "label", "source"],
+      "properties": {
+        "kind": { "enum": ["design", "scene-snapshot"] },
+        "label": { "type": "string", "minLength": 1 },
+        "source": { "type": "string", "minLength": 1 },
+        "generatedAt": { "type": "string" },
+        "snapshotDate": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "allOf": [
+        {
+          "if": { "properties": { "kind": { "const": "design" } } },
+          "then": { "required": ["generatedAt"] }
+        },
+        {
+          "if": { "properties": { "kind": { "const": "scene-snapshot" } } },
+          "then": { "required": ["snapshotDate"] }
+        }
+      ],
+      "additionalProperties": false
+    },
+    "meta": {
+      "type": "object",
+      "required": ["title", "units", "bounds", "provenance", "player"],
+      "properties": {
+        "title": { "type": "string", "minLength": 1 },
+        "subtitle": { "type": "string" },
+        "units": { "const": "m" },
+        "bounds": { "$ref": "#/$defs/bounds" },
+        "provenance": { "$ref": "#/$defs/provenance" },
+        "player": { "$ref": "#/$defs/player" },
+        "concept": { "type": "string" },
+        "mainLength": { "type": "number" },
+        "area": { "type": "number" },
+        "enemySummary": { "type": "object", "additionalProperties": { "type": "number" } },
+        "designNotes": { "type": "array", "items": { "type": "string" } },
+        "pacing": {
+          "type": "object",
+          "properties": {
+            "lambda": { "type": "number", "exclusiveMinimum": 0 },
+            "aggro": { "type": "number", "exclusiveMinimum": 0 },
+            "step": { "type": "number", "exclusiveMinimum": 0 },
+            "weights": { "type": "object", "additionalProperties": { "type": "number" } }
+          },
+          "additionalProperties": false
+        },
+        "copy": { "type": "object" },
+        "legendLabels": {
+          "type": "object",
+          "additionalProperties": { "type": "string", "minLength": 1 }
+        },
+        "proximity": {
+          "type": "array",
+          "items": { "$ref": "#/$defs/proximityRule" }
+        },
+        "kindLegend": {
+          "type": "object",
+          "description": "keys are object kind or enemy enemyType values",
+          "additionalProperties": {
+            "type": "object",
+            "required": ["label"],
+            "properties": {
+              "label": { "type": "string", "minLength": 1 },
+              "note": { "type": "string" }
+            },
+            "additionalProperties": false
+          }
+        }
+      },
+      "additionalProperties": true
+    },
+    "proximityRule": {
+      "type": "object",
+      "required": ["id", "name", "radius"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "radius": { "type": "number", "exclusiveMinimum": 0, "description": "connection distance in metres" },
+        "kinds": { "type": "array", "items": { "type": "string" } },
+        "enemyTypes": { "type": "array", "items": { "type": "string" } },
+        "lineOfSight": { "type": "boolean", "description": "default true" }
+      },
+      "anyOf": [
+        { "required": ["kinds"], "properties": { "kinds": { "minItems": 1 } } },
+        { "required": ["enemyTypes"], "properties": { "enemyTypes": { "minItems": 1 } } }
+      ],
+      "additionalProperties": false
+    },
+    "floor": {
+      "type": "object",
+      "required": ["id", "name", "elevation", "height"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "elevation": { "type": "number" },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "room": {
+      "type": "object",
+      "required": ["id", "name", "kind", "status", "floorId", "points"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "short": { "type": "string" },
+        "kind": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["existing", "planned", "adjusted", "preview", "annotation"] },
+        "floorId": { "$ref": "#/$defs/id" },
+        "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "code": { "type": "string" },
+        "label": { "$ref": "#/$defs/point" },
+        "beat": { "type": "string" },
+        "role": { "type": "string" },
+        "preset": { "type": "string" },
+        "flow": { "type": "string" },
+        "area": { "type": "number" },
+        "note": { "type": "string" },
+        "wallHeight": { "type": "number", "minimum": 0, "description": "3D wall height in metres; 0 = open space without walls" },
+        "openEdges": {
+          "type": "array",
+          "items": { "type": "integer", "minimum": 0 },
+          "uniqueItems": true,
+          "description": "indices of edges without a wall; edge i = points[i] -> points[(i+1) % n]"
+        },
+        "points": { "$ref": "#/$defs/polygon" }
+      },
+      "additionalProperties": false
+    },
+    "object": {
+      "type": "object",
+      "required": ["id", "name", "kind", "floorId", "points"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "type": "string", "minLength": 1 },
+        "floorId": { "$ref": "#/$defs/id" },
+        "points": { "$ref": "#/$defs/polygon" },
+        "solid": { "type": "boolean" },
+        "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "note": { "type": "string" },
+        "assets": { "type": "array", "items": { "type": "string" } },
+        "baseHeight": { "type": "number", "minimum": 0, "description": "bottom of the object above its floor elevation, metres; 0 = on the floor" },
+        "walkable": { "type": "boolean", "description": "whether the top can be stood on; default false" },
+        "states": {
+          "type": "array",
+          "minItems": 2,
+          "items": { "$ref": "#/$defs/objectState" }
+        },
+        "initialState": { "$ref": "#/$defs/id", "description": "id of the initial state; default states[0]" }
+      },
+      "additionalProperties": false
+    },
+    "objectState": {
+      "type": "object",
+      "required": ["id"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id", "description": "unique within its object only" },
+        "name": { "type": "string" },
+        "points": { "$ref": "#/$defs/polygon" },
+        "solid": { "type": "boolean" },
+        "baseHeight": { "type": "number", "minimum": 0 },
+        "height": { "type": "number", "exclusiveMinimum": 0 },
+        "present": { "type": "boolean", "description": "false = the object is absent in this state; default true" }
+      },
+      "additionalProperties": false
+    },
+    "enemy": {
+      "type": "object",
+      "required": ["id", "name", "enemyType", "tier", "branch", "floorId", "roomId", "center"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "enemyType": { "type": "string", "minLength": 1 },
+        "tier": { "enum": ["normal", "elite", "boss"] },
+        "branch": { "enum": ["main", "optional"] },
+        "floorId": { "$ref": "#/$defs/id" },
+        "roomId": { "$ref": "#/$defs/id" },
+        "center": { "$ref": "#/$defs/point" },
+        "hp": { "type": "number" },
+        "speed": { "type": "number" },
+        "mechanic": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "door": {
+      "type": "object",
+      "required": ["id", "name", "floorId", "points", "width"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "floorId": { "$ref": "#/$defs/id" },
+        "points": {
+          "type": "array",
+          "minItems": 2,
+          "maxItems": 2,
+          "items": { "$ref": "#/$defs/point" }
+        },
+        "width": { "type": "number", "exclusiveMinimum": 0 },
+        "initial": { "enum": ["open", "closed"], "description": "initial state; default open" },
+        "height": { "type": "number", "exclusiveMinimum": 0, "description": "clear height of the opening, metres" }
+      },
+      "additionalProperties": false
+    },
+    "link": {
+      "type": "object",
+      "required": ["id", "name", "from", "to"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "from": {
+          "type": "array",
+          "minItems": 1,
+          "items": { "$ref": "#/$defs/id" },
+          "description": "trigger sources: object, enemy or room ids"
+        },
+        "to": {
+          "type": "array",
+          "minItems": 1,
+          "items": {
+            "type": "object",
+            "required": ["id", "state"],
+            "properties": {
+              "id": { "$ref": "#/$defs/id", "description": "an object with states, or a door" },
+              "state": { "type": "string", "description": "object: one of its state ids; door: open or closed" }
+            },
+            "additionalProperties": false
+          }
+        },
+        "require": { "enum": ["all", "any"], "description": "default all" },
+        "trigger": { "type": "string", "description": "what happens to the sources: activated / defeated / entered" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "route": {
+      "type": "object",
+      "required": ["id", "name", "kind", "floorId", "points"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "kind": { "enum": ["main", "optional", "exit", "secret"] },
+        "floorId": { "$ref": "#/$defs/id" },
+        "points": { "$ref": "#/$defs/line" },
+        "color": { "type": "string", "pattern": "^#[0-9a-fA-F]{6}$" },
+        "note": { "type": "string" },
+        "length": { "type": "number" }
+      },
+      "additionalProperties": false
+    },
+    "stairs": {
+      "type": "object",
+      "required": ["id", "name", "points", "fromFloorId", "toFloorId"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "points": { "$ref": "#/$defs/polygon" },
+        "fromFloorId": { "$ref": "#/$defs/id" },
+        "toFloorId": { "$ref": "#/$defs/id" },
+        "direction": { "enum": ["up", "down"] },
+        "bottom": { "enum": ["N", "S", "E", "W"], "description": "side of the footprint where the stair's lower end is" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "water": {
+      "type": "object",
+      "required": ["id", "name", "floorId", "points"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "name": { "type": "string", "minLength": 1 },
+        "floorId": { "$ref": "#/$defs/id" },
+        "points": { "$ref": "#/$defs/polygon" },
+        "kind": { "type": "string" },
+        "note": { "type": "string" }
+      },
+      "additionalProperties": false
+    },
+    "reviewNote": {
+      "type": "object",
+      "required": ["id", "text", "status"],
+      "properties": {
+        "id": { "$ref": "#/$defs/id" },
+        "text": { "type": "string", "minLength": 1 },
+        "status": { "enum": ["open", "confirmed", "resolved"] },
+        "targetId": { "$ref": "#/$defs/id" },
+        "at": { "$ref": "#/$defs/point", "description": "where the note sits when it is not about one entity" },
+        "floorId": { "$ref": "#/$defs/id", "description": "floor of `at` on multi-floor maps" }
+      },
+      "additionalProperties": false
+    }
+  }
+}

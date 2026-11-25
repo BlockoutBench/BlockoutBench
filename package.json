@@ -1,0 +1,16 @@
+{
+  "name": "level-workbench",
+  "private": true,
+  "description": "关卡工作台桌面版：AI_MAP_SPEC 地图的 2D/3D 查看、校验与导出",
+  "author": "关卡形态要乐奈",
+  "license": "SEE LICENSE IN LICENSE.md",
+  "scripts": {
+    "build": "python tools/build.py",
+    "desktop": "electron desktop",
+    "check": "python tools/check_all.py",
+    "check:data": "python tools/check_all.py --no-browser"
+  },
+  "devDependencies": {
+    "playwright": "1.48.2"
+  }
+}

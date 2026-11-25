@@ -1,0 +1,1677 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "示例 · 功能导览：雾港信号站",
+    "subtitle": "一张图走遍工作台的全部功能：三层空间、机关与状态、邻近连通、撤离与节奏",
+    "concept": "夜雾里的海港信号站。玩家从露天码头进入，拉开大厅闸门，接通走廊里的信号中继，打开实验室，击败看守后从崖边平台撤离。",
+    "units": "m",
+    "bounds": {
+      "minX": 0,
+      "minZ": 0,
+      "maxX": 60,
+      "maxZ": 40
+    },
+    "provenance": {
+      "kind": "design",
+      "label": "工作台功能导览样例 v1",
+      "source": "AI_MAP_SPEC.md",
+      "generatedAt": "2026-11-23"
+    },
+    "player": {
+      "radius": 0.35,
+      "height": 1.7,
+      "walkSpeed": 4,
+      "rollDistance": 3,
+      "rollDuration": 0.3,
+      "interactionRange": 2
+    },
+    "legendLabels": {
+      "main": "主线",
+      "optional": "可选",
+      "exit": "撤离",
+      "secret": "密道"
+    },
+    "pacing": {
+      "lambda": 5.5,
+      "aggro": 8
+    },
+    "designNotes": [
+      "节奏：大厅两名普通敌人热身，走廊无敌人用来解谜和喘息，实验室的精英战是全图最高峰，放在主线后段。",
+      "机关：大厅拉杆打开闸门后，信号塔才能连到走廊的悬挂信号灯；再把中继箱推到东卡位，信号灯 → 中继箱 → 接收器才连通。",
+      "实验室门要“储藏室拉杆”和“接收器”同时激活才开（全部满足）；储藏室门踩下码头两块压板中任意一块即开（任一满足）。",
+      "撤离：击败精英后崖边平台门打开，平台北侧临海不砌墙，撤离点在平台东端。",
+      "可选内容：二层观景回廊有守卫长和补给，地下泵房有密道和补给。"
+    ],
+    "kindLegend": {
+      "relay-pole": {
+        "label": "信号塔",
+        "note": "固定的信号中继节点。"
+      },
+      "relay-lamp": {
+        "label": "悬挂信号灯",
+        "note": "悬在半空的中继节点，下面可以走人。"
+      },
+      "relay-crate": {
+        "label": "中继箱",
+        "note": "可推动的中继节点，沿地面导轨在两个卡位之间移动。"
+      },
+      "relay-receiver": {
+        "label": "接收器",
+        "note": "收到信号后激活，是打开实验室门的条件之一。"
+      },
+      "pressure-plate": {
+        "label": "压板",
+        "note": "踩下即触发。"
+      },
+      "gate": {
+        "label": "闸门",
+        "note": "关闭时挡路，也挡信号。"
+      },
+      "lift-bridge": {
+        "label": "升降桥",
+        "note": "收起时不在场；伸出后可以站人。"
+      },
+      "lamp": {
+        "label": "装饰吊灯",
+        "note": "悬空装饰，不挡路。"
+      },
+      "drone": {
+        "label": "巡逻无人机",
+        "note": "敌人，自身也能中继信号。"
+      }
+    },
+    "proximity": [
+      {
+        "id": "signal",
+        "name": "信号中继",
+        "radius": 6,
+        "kinds": [
+          "relay-pole",
+          "relay-lamp",
+          "relay-crate",
+          "relay-receiver"
+        ],
+        "enemyTypes": [
+          "drone"
+        ],
+        "lineOfSight": true
+      }
+    ]
+  },
+  "floors": [
+    {
+      "id": "B1",
+      "name": "B1 泵房层",
+      "elevation": -4,
+      "height": 3.6,
+      "note": "地下泵房，走廊南侧楼梯下来"
+    },
+    {
+      "id": "1F",
+      "name": "1F 主层",
+      "elevation": 0,
+      "height": 4,
+      "note": "码头、大厅、走廊、实验室、崖边平台"
+    },
+    {
+      "id": "2F",
+      "name": "2F 回廊",
+      "elevation": 4.5,
+      "height": 3.6,
+      "note": "大厅上方的观景回廊"
+    }
+  ],
+  "rooms": [
+    {
+      "id": "r_dock",
+      "name": "码头广场",
+      "kind": "atrium",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          2,
+          12
+        ],
+        [
+          14,
+          12
+        ],
+        [
+          14,
+          28
+        ],
+        [
+          2,
+          28
+        ]
+      ],
+      "wallHeight": 0,
+      "color": "#dfe3d8",
+      "code": "01",
+      "beat": "入口，露天",
+      "role": "出发点"
+    },
+    {
+      "id": "r_hall",
+      "name": "接待大厅",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          14,
+          12
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          30,
+          28
+        ],
+        [
+          14,
+          28
+        ]
+      ],
+      "color": "#e8ddc9",
+      "code": "02",
+      "beat": "热身战：两名普通敌人",
+      "role": "第一场战斗"
+    },
+    {
+      "id": "r_store",
+      "name": "储藏室",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          16,
+          28
+        ],
+        [
+          26,
+          28
+        ],
+        [
+          26,
+          36
+        ],
+        [
+          16,
+          36
+        ]
+      ],
+      "color": "#e2e6d3",
+      "code": "03",
+      "beat": "可选：补给与拉杆",
+      "role": "解锁实验室门的条件之一"
+    },
+    {
+      "id": "r_corr",
+      "name": "信号走廊",
+      "kind": "corridor",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          30,
+          17
+        ],
+        [
+          44,
+          17
+        ],
+        [
+          44,
+          23
+        ],
+        [
+          30,
+          23
+        ]
+      ],
+      "color": "#dde3e8",
+      "code": "04",
+      "beat": "无敌人，推箱接通信号",
+      "role": "喘息与解谜"
+    },
+    {
+      "id": "r_lab",
+      "name": "信号实验室",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          44,
+          10
+        ],
+        [
+          58,
+          10
+        ],
+        [
+          58,
+          30
+        ],
+        [
+          44,
+          30
+        ]
+      ],
+      "color": "#ecd8d2",
+      "code": "05",
+      "beat": "高潮：精英 + 无人机 + 守卫",
+      "role": "最后一场战斗"
+    },
+    {
+      "id": "r_cliff",
+      "name": "崖边平台",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "points": [
+        [
+          44,
+          30
+        ],
+        [
+          58,
+          30
+        ],
+        [
+          58,
+          38
+        ],
+        [
+          44,
+          38
+        ]
+      ],
+      "color": "#e3e9e1",
+      "code": "06",
+      "beat": "撤离",
+      "role": "北侧与东侧临海不砌墙",
+      "openEdges": [
+        1,
+        2
+      ]
+    },
+    {
+      "id": "r_pump",
+      "name": "地下泵房",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "B1",
+      "points": [
+        [
+          30,
+          14
+        ],
+        [
+          44,
+          14
+        ],
+        [
+          44,
+          24
+        ],
+        [
+          30,
+          24
+        ]
+      ],
+      "color": "#d7dbd8",
+      "code": "B1",
+      "beat": "可选：密道尽头的补给"
+    },
+    {
+      "id": "r_gallery",
+      "name": "观景回廊",
+      "kind": "gallery",
+      "status": "planned",
+      "floorId": "2F",
+      "points": [
+        [
+          14,
+          12
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          30,
+          20
+        ],
+        [
+          14,
+          20
+        ]
+      ],
+      "color": "#e6e0d0",
+      "code": "2F",
+      "beat": "可选：守卫长"
+    }
+  ],
+  "doors": [
+    {
+      "id": "d_dock",
+      "name": "广场入口",
+      "floorId": "1F",
+      "points": [
+        [
+          14,
+          19
+        ],
+        [
+          14,
+          21
+        ]
+      ],
+      "width": 2
+    },
+    {
+      "id": "d_store",
+      "name": "储藏室门",
+      "floorId": "1F",
+      "points": [
+        [
+          20,
+          28
+        ],
+        [
+          22,
+          28
+        ]
+      ],
+      "width": 2,
+      "initial": "closed"
+    },
+    {
+      "id": "d_corr",
+      "name": "走廊门",
+      "floorId": "1F",
+      "points": [
+        [
+          30,
+          19
+        ],
+        [
+          30,
+          21
+        ]
+      ],
+      "width": 2
+    },
+    {
+      "id": "d_lab",
+      "name": "实验室门",
+      "floorId": "1F",
+      "points": [
+        [
+          44,
+          19
+        ],
+        [
+          44,
+          21
+        ]
+      ],
+      "width": 2,
+      "height": 2.2,
+      "initial": "closed"
+    },
+    {
+      "id": "d_cliff",
+      "name": "平台门",
+      "floorId": "1F",
+      "points": [
+        [
+          50,
+          30
+        ],
+        [
+          52,
+          30
+        ]
+      ],
+      "width": 2,
+      "initial": "closed"
+    }
+  ],
+  "stairs": [
+    {
+      "id": "s_up",
+      "name": "回廊楼梯",
+      "fromFloorId": "1F",
+      "toFloorId": "2F",
+      "direction": "up",
+      "bottom": "E",
+      "points": [
+        [
+          22,
+          14
+        ],
+        [
+          27,
+          14
+        ],
+        [
+          27,
+          17
+        ],
+        [
+          22,
+          17
+        ]
+      ]
+    },
+    {
+      "id": "s_down",
+      "name": "泵房楼梯",
+      "fromFloorId": "1F",
+      "toFloorId": "B1",
+      "direction": "down",
+      "bottom": "E",
+      "points": [
+        [
+          31,
+          17.3
+        ],
+        [
+          35,
+          17.3
+        ],
+        [
+          35,
+          19
+        ],
+        [
+          31,
+          19
+        ]
+      ]
+    }
+  ],
+  "water": [
+    {
+      "id": "w_harbor",
+      "name": "码头水池",
+      "floorId": "1F",
+      "kind": "pool",
+      "points": [
+        [
+          4,
+          23
+        ],
+        [
+          10,
+          23
+        ],
+        [
+          10,
+          27
+        ],
+        [
+          4,
+          27
+        ]
+      ]
+    },
+    {
+      "id": "w_pump",
+      "name": "泵房积水",
+      "floorId": "B1",
+      "kind": "pool",
+      "points": [
+        [
+          38,
+          15
+        ],
+        [
+          43,
+          15
+        ],
+        [
+          43,
+          18
+        ],
+        [
+          38,
+          18
+        ]
+      ]
+    }
+  ],
+  "objects": [
+    {
+      "id": "o_bench",
+      "name": "候船长椅",
+      "kind": "bench",
+      "floorId": "1F",
+      "points": [
+        [
+          5,
+          14
+        ],
+        [
+          8,
+          14
+        ],
+        [
+          8,
+          15
+        ],
+        [
+          5,
+          15
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_lamp_dock",
+      "name": "码头吊灯",
+      "kind": "lamp",
+      "floorId": "1F",
+      "points": [
+        [
+          7.5,
+          18.5
+        ],
+        [
+          8.5,
+          18.5
+        ],
+        [
+          8.5,
+          19.5
+        ],
+        [
+          7.5,
+          19.5
+        ]
+      ],
+      "solid": false,
+      "baseHeight": 3,
+      "height": 0.4,
+      "color": "#d8c27a"
+    },
+    {
+      "id": "o_plate_a",
+      "name": "压板 A",
+      "kind": "pressure-plate",
+      "floorId": "1F",
+      "points": [
+        [
+          4.4,
+          19.4
+        ],
+        [
+          5.6,
+          19.4
+        ],
+        [
+          5.6,
+          20.6
+        ],
+        [
+          4.4,
+          20.6
+        ]
+      ],
+      "solid": false,
+      "height": 0.05,
+      "color": "#9aa6a0"
+    },
+    {
+      "id": "o_plate_b",
+      "name": "压板 B",
+      "kind": "pressure-plate",
+      "floorId": "1F",
+      "points": [
+        [
+          10.4,
+          24.4
+        ],
+        [
+          11.6,
+          24.4
+        ],
+        [
+          11.6,
+          25.6
+        ],
+        [
+          10.4,
+          25.6
+        ]
+      ],
+      "solid": false,
+      "height": 0.05,
+      "color": "#9aa6a0"
+    },
+    {
+      "id": "o_carpet",
+      "name": "大厅地毯",
+      "kind": "floor-finish",
+      "floorId": "1F",
+      "points": [
+        [
+          15,
+          19
+        ],
+        [
+          29,
+          19
+        ],
+        [
+          29,
+          21
+        ],
+        [
+          15,
+          21
+        ]
+      ],
+      "color": "#d9c7a8"
+    },
+    {
+      "id": "o_pillar_w",
+      "name": "大厅立柱 西",
+      "kind": "column",
+      "floorId": "1F",
+      "points": [
+        [
+          17.5,
+          24.0
+        ],
+        [
+          18.5,
+          24.0
+        ],
+        [
+          18.5,
+          25.0
+        ],
+        [
+          17.5,
+          25.0
+        ]
+      ],
+      "solid": true,
+      "height": 4
+    },
+    {
+      "id": "o_pillar_e",
+      "name": "大厅立柱 东",
+      "kind": "column",
+      "floorId": "1F",
+      "points": [
+        [
+          24.5,
+          24.0
+        ],
+        [
+          25.5,
+          24.0
+        ],
+        [
+          25.5,
+          25.0
+        ],
+        [
+          24.5,
+          25.0
+        ]
+      ],
+      "solid": true,
+      "height": 4
+    },
+    {
+      "id": "o_lever_hall",
+      "name": "闸门拉杆",
+      "kind": "interaction",
+      "floorId": "1F",
+      "points": [
+        [
+          15.5,
+          26.0
+        ],
+        [
+          16.5,
+          26.0
+        ],
+        [
+          16.5,
+          27.0
+        ],
+        [
+          15.5,
+          27.0
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_display",
+      "name": "货样展柜",
+      "kind": "display",
+      "floorId": "1F",
+      "points": [
+        [
+          17,
+          34
+        ],
+        [
+          19,
+          34
+        ],
+        [
+          19,
+          35
+        ],
+        [
+          17,
+          35
+        ]
+      ],
+      "solid": true,
+      "height": 1.1
+    },
+    {
+      "id": "o_lever_store",
+      "name": "储藏室拉杆",
+      "kind": "interaction",
+      "floorId": "1F",
+      "points": [
+        [
+          24.0,
+          34.0
+        ],
+        [
+          25.0,
+          34.0
+        ],
+        [
+          25.0,
+          35.0
+        ],
+        [
+          24.0,
+          35.0
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_loot_store",
+      "name": "补给 L1",
+      "kind": "loot",
+      "floorId": "1F",
+      "points": [
+        [
+          22.5,
+          30.5
+        ],
+        [
+          23.5,
+          30.5
+        ],
+        [
+          23.5,
+          31.5
+        ],
+        [
+          22.5,
+          31.5
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_rail",
+      "name": "中继箱导轨",
+      "kind": "floor-inlay",
+      "floorId": "1F",
+      "points": [
+        [
+          32.3,
+          22
+        ],
+        [
+          36.5,
+          22
+        ],
+        [
+          36.5,
+          22.4
+        ],
+        [
+          32.3,
+          22.4
+        ]
+      ],
+      "color": "#6b5a3a"
+    },
+    {
+      "id": "o_arena",
+      "name": "实验室战斗区",
+      "kind": "combat-space",
+      "floorId": "1F",
+      "points": [
+        [
+          45,
+          11
+        ],
+        [
+          57,
+          11
+        ],
+        [
+          57,
+          29
+        ],
+        [
+          45,
+          29
+        ]
+      ],
+      "solid": false,
+      "color": "#b35a4a"
+    },
+    {
+      "id": "o_cover_n",
+      "name": "掩体 北",
+      "kind": "cover",
+      "floorId": "1F",
+      "points": [
+        [
+          46,
+          26
+        ],
+        [
+          48,
+          26
+        ],
+        [
+          48,
+          27
+        ],
+        [
+          46,
+          27
+        ]
+      ],
+      "solid": true,
+      "height": 1.1
+    },
+    {
+      "id": "o_cover_s",
+      "name": "掩体 南",
+      "kind": "cover",
+      "floorId": "1F",
+      "points": [
+        [
+          53,
+          13
+        ],
+        [
+          55,
+          13
+        ],
+        [
+          55,
+          14
+        ],
+        [
+          53,
+          14
+        ]
+      ],
+      "solid": true,
+      "height": 1.1
+    },
+    {
+      "id": "o_extract",
+      "name": "撤离信标",
+      "kind": "extract",
+      "floorId": "1F",
+      "points": [
+        [
+          54,
+          33
+        ],
+        [
+          56,
+          33
+        ],
+        [
+          56,
+          35
+        ],
+        [
+          54,
+          35
+        ]
+      ],
+      "solid": false,
+      "color": "#5f9e8f"
+    },
+    {
+      "id": "o_loot_pump",
+      "name": "补给 L2",
+      "kind": "loot",
+      "floorId": "B1",
+      "points": [
+        [
+          41.5,
+          21.5
+        ],
+        [
+          42.5,
+          21.5
+        ],
+        [
+          42.5,
+          22.5
+        ],
+        [
+          41.5,
+          22.5
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_loot_gallery",
+      "name": "补给 L3",
+      "kind": "loot",
+      "floorId": "2F",
+      "points": [
+        [
+          27.5,
+          17.5
+        ],
+        [
+          28.5,
+          17.5
+        ],
+        [
+          28.5,
+          18.5
+        ],
+        [
+          27.5,
+          18.5
+        ]
+      ],
+      "solid": false
+    },
+    {
+      "id": "o_roof",
+      "name": "回廊顶棚",
+      "kind": "roof",
+      "floorId": "2F",
+      "points": [
+        [
+          14,
+          12
+        ],
+        [
+          30,
+          12
+        ],
+        [
+          30,
+          20
+        ],
+        [
+          14,
+          20
+        ]
+      ],
+      "solid": true,
+      "baseHeight": 3.4,
+      "height": 0.2,
+      "color": "#9aa29a"
+    },
+    {
+      "id": "o_pole",
+      "name": "信号塔",
+      "kind": "relay-pole",
+      "floorId": "1F",
+      "points": [
+        [
+          27.5,
+          19.7
+        ],
+        [
+          28.1,
+          19.7
+        ],
+        [
+          28.1,
+          20.3
+        ],
+        [
+          27.5,
+          20.3
+        ]
+      ],
+      "solid": true,
+      "height": 3,
+      "color": "#c9a23a"
+    },
+    {
+      "id": "o_relay_lamp",
+      "name": "悬挂信号灯",
+      "kind": "relay-lamp",
+      "floorId": "1F",
+      "points": [
+        [
+          32.6,
+          19.6
+        ],
+        [
+          33.4,
+          19.6
+        ],
+        [
+          33.4,
+          20.4
+        ],
+        [
+          32.6,
+          20.4
+        ]
+      ],
+      "solid": false,
+      "baseHeight": 2.6,
+      "height": 0.6,
+      "color": "#c9a23a"
+    },
+    {
+      "id": "o_receiver",
+      "name": "接收器",
+      "kind": "relay-receiver",
+      "floorId": "1F",
+      "points": [
+        [
+          38.7,
+          21.7
+        ],
+        [
+          39.7,
+          21.7
+        ],
+        [
+          39.7,
+          22.7
+        ],
+        [
+          38.7,
+          22.7
+        ]
+      ],
+      "solid": true,
+      "height": 1.2,
+      "color": "#6a4c93"
+    },
+    {
+      "id": "o_pole_lab",
+      "name": "实验室信号塔",
+      "kind": "relay-pole",
+      "floorId": "1F",
+      "points": [
+        [
+          50.2,
+          12.2
+        ],
+        [
+          50.8,
+          12.2
+        ],
+        [
+          50.8,
+          12.8
+        ],
+        [
+          50.2,
+          12.8
+        ]
+      ],
+      "solid": true,
+      "height": 3,
+      "color": "#c9a23a"
+    },
+    {
+      "id": "o_gate",
+      "name": "大厅闸门",
+      "kind": "gate",
+      "floorId": "1F",
+      "points": [
+        [
+          28.6,
+          18.5
+        ],
+        [
+          29.3,
+          18.5
+        ],
+        [
+          29.3,
+          21.5
+        ],
+        [
+          28.6,
+          21.5
+        ]
+      ],
+      "solid": true,
+      "height": 3,
+      "color": "#8f8a80",
+      "initialState": "closed",
+      "states": [
+        {
+          "id": "closed",
+          "name": "关闭"
+        },
+        {
+          "id": "open",
+          "name": "打开",
+          "present": false
+        }
+      ]
+    },
+    {
+      "id": "o_crate",
+      "name": "中继箱",
+      "kind": "relay-crate",
+      "floorId": "1F",
+      "points": [
+        [
+          32.3,
+          21.7
+        ],
+        [
+          33.3,
+          21.7
+        ],
+        [
+          33.3,
+          22.7
+        ],
+        [
+          32.3,
+          22.7
+        ]
+      ],
+      "solid": true,
+      "height": 1,
+      "color": "#c9a23a",
+      "initialState": "slot_w",
+      "states": [
+        {
+          "id": "slot_w",
+          "name": "西卡位",
+          "points": [
+            [
+              32.3,
+              21.7
+            ],
+            [
+              33.3,
+              21.7
+            ],
+            [
+              33.3,
+              22.7
+            ],
+            [
+              32.3,
+              22.7
+            ]
+          ]
+        },
+        {
+          "id": "slot_e",
+          "name": "东卡位",
+          "points": [
+            [
+              35.5,
+              21.7
+            ],
+            [
+              36.5,
+              21.7
+            ],
+            [
+              36.5,
+              22.7
+            ],
+            [
+              35.5,
+              22.7
+            ]
+          ]
+        }
+      ]
+    },
+    {
+      "id": "o_bridge",
+      "name": "升降桥",
+      "kind": "lift-bridge",
+      "floorId": "1F",
+      "points": [
+        [
+          48,
+          38
+        ],
+        [
+          52,
+          38
+        ],
+        [
+          52,
+          40
+        ],
+        [
+          48,
+          40
+        ]
+      ],
+      "solid": false,
+      "walkable": true,
+      "height": 0.3,
+      "color": "#b7ab8f",
+      "initialState": "retracted",
+      "states": [
+        {
+          "id": "retracted",
+          "name": "收起",
+          "present": false
+        },
+        {
+          "id": "extended",
+          "name": "伸出"
+        }
+      ]
+    }
+  ],
+  "enemies": [
+    {
+      "id": "e_hall_1",
+      "name": "大厅哨兵",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_hall",
+      "center": [
+        18,
+        14.5
+      ]
+    },
+    {
+      "id": "e_hall_2",
+      "name": "大厅射手",
+      "enemyType": "ranged",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_hall",
+      "center": [
+        20.5,
+        26.5
+      ]
+    },
+    {
+      "id": "e_store",
+      "name": "储藏室看守",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "optional",
+      "floorId": "1F",
+      "roomId": "r_store",
+      "center": [
+        20,
+        32
+      ]
+    },
+    {
+      "id": "e_drone",
+      "name": "巡逻无人机",
+      "enemyType": "drone",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_lab",
+      "center": [
+        53,
+        14
+      ],
+      "mechanic": "会中继信号"
+    },
+    {
+      "id": "e_lab_guard",
+      "name": "实验室守卫",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_lab",
+      "center": [
+        56.5,
+        16
+      ]
+    },
+    {
+      "id": "e_elite",
+      "name": "信号站看守",
+      "enemyType": "elite",
+      "tier": "elite",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_lab",
+      "center": [
+        54.5,
+        23.5
+      ],
+      "hp": 600
+    },
+    {
+      "id": "e_lab_sniper",
+      "name": "实验室狙击手",
+      "enemyType": "ranged",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_lab",
+      "center": [
+        56.5,
+        27
+      ]
+    },
+    {
+      "id": "e_pump",
+      "name": "泵房爬行者",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "optional",
+      "floorId": "B1",
+      "roomId": "r_pump",
+      "center": [
+        36,
+        21
+      ]
+    },
+    {
+      "id": "e_boss",
+      "name": "回廊守卫长",
+      "enemyType": "boss",
+      "tier": "boss",
+      "branch": "optional",
+      "floorId": "2F",
+      "roomId": "r_gallery",
+      "center": [
+        18,
+        16
+      ],
+      "hp": 1500
+    }
+  ],
+  "links": [
+    {
+      "id": "lk_gate",
+      "name": "拉杆开闸门",
+      "trigger": "activated",
+      "from": [
+        "o_lever_hall"
+      ],
+      "to": [
+        {
+          "id": "o_gate",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "id": "lk_store",
+      "name": "任一压板开储藏室门",
+      "trigger": "activated",
+      "require": "any",
+      "from": [
+        "o_plate_a",
+        "o_plate_b"
+      ],
+      "to": [
+        {
+          "id": "d_store",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "id": "lk_lab",
+      "name": "拉杆与接收器同时激活开实验室门",
+      "trigger": "activated",
+      "require": "all",
+      "from": [
+        "o_lever_store",
+        "o_receiver"
+      ],
+      "to": [
+        {
+          "id": "d_lab",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "id": "lk_cliff",
+      "name": "击败看守开平台门",
+      "trigger": "defeated",
+      "from": [
+        "e_elite"
+      ],
+      "to": [
+        {
+          "id": "d_cliff",
+          "state": "open"
+        }
+      ]
+    },
+    {
+      "id": "lk_bridge",
+      "name": "实验室清空后伸出升降桥",
+      "trigger": "defeated",
+      "from": [
+        "r_lab"
+      ],
+      "to": [
+        {
+          "id": "o_bridge",
+          "state": "extended"
+        }
+      ]
+    }
+  ],
+  "routes": [
+    {
+      "id": "main",
+      "name": "主线",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [
+        [
+          4,
+          17
+        ],
+        [
+          14,
+          20
+        ],
+        [
+          27,
+          18.5
+        ],
+        [
+          30,
+          20
+        ],
+        [
+          33,
+          20.3
+        ],
+        [
+          43,
+          20.3
+        ],
+        [
+          44,
+          20
+        ],
+        [
+          46,
+          22.5
+        ],
+        [
+          51,
+          28
+        ],
+        [
+          51,
+          31
+        ],
+        [
+          54.5,
+          34
+        ]
+      ]
+    },
+    {
+      "id": "exit",
+      "name": "撤离线",
+      "kind": "exit",
+      "floorId": "1F",
+      "points": [
+        [
+          51,
+          31
+        ],
+        [
+          55,
+          33.8
+        ]
+      ]
+    },
+    {
+      "id": "opt_store",
+      "name": "储藏室支线",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [
+        [
+          21,
+          22
+        ],
+        [
+          21,
+          28
+        ],
+        [
+          22,
+          31.5
+        ]
+      ],
+      "note": "终点是补给 L1"
+    },
+    {
+      "id": "opt_gallery",
+      "name": "上回廊",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [
+        [
+          28,
+          15.5,
+          0
+        ],
+        [
+          27,
+          15.5,
+          0
+        ],
+        [
+          22,
+          15.5,
+          4.5
+        ],
+        [
+          20,
+          15.5,
+          4.5
+        ],
+        [
+          27.5,
+          18,
+          4.5
+        ]
+      ],
+      "note": "走楼梯上二层，终点是补给 L3"
+    },
+    {
+      "id": "secret_pump",
+      "name": "泵房密道",
+      "kind": "secret",
+      "floorId": "1F",
+      "points": [
+        [
+          31,
+          18.2,
+          0
+        ],
+        [
+          35,
+          18.2,
+          -4
+        ],
+        [
+          38,
+          20,
+          -4
+        ],
+        [
+          41.5,
+          22,
+          -4
+        ]
+      ],
+      "note": "从走廊楼梯下到泵房，终点是补给 L2"
+    }
+  ],
+  "reviewNotes": [
+    {
+      "id": "rn_elite",
+      "text": "看守离平台门太近，玩家一进门就会被贴脸，考虑往西挪 3 米。",
+      "status": "open",
+      "targetId": "e_elite"
+    },
+    {
+      "id": "rn_dock",
+      "text": "广场西侧空旷，缺一处可以观察大厅的遮挡。",
+      "status": "open",
+      "at": [
+        6,
+        21
+      ],
+      "floorId": "1F"
+    }
+  ]
+}

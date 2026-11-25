@@ -1,0 +1,21 @@
+{
+  "note": "地图清单：顺序即左侧列表顺序，file 相对项目根目录。改完运行 python tools/build.py。",
+  "maps": [
+    {
+      "key": "showcase",
+      "file": "maps/showcase.json"
+    },
+    {
+      "key": "ai-sample",
+      "file": "AI_MAP_SAMPLE.json"
+    },
+    {
+      "key": "sample-multifloor",
+      "file": "maps/sample-multifloor.json"
+    },
+    {
+      "key": "sample-mechanisms",
+      "file": "maps/sample-mechanisms.json"
+    }
+  ]
+}

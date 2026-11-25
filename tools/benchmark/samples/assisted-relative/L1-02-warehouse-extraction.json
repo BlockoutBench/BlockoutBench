@@ -1,0 +1,40 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L1-02 仓储撤离 · Assisted Relative",
+    "units": "m",
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L1-02", "generatedAt": "2026-11-13" },
+    "player": { "radius": 0.35, "height": 1.7, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [{ "id": "1F", "name": "1F", "elevation": 0, "height": 4.0 }],
+  "rooms": [
+    { "id": "r_dock", "name": "卸货区", "kind": "entry", "floorId": "1F", "size": [10, 8], "attach": { "at": [7, 6] } },
+    { "id": "r_store_a", "name": "A号货仓", "kind": "warehouse", "floorId": "1F", "size": [10, 10], "attach": "northOf:r_dock" },
+    { "id": "r_store_b", "name": "B号货仓", "kind": "warehouse", "floorId": "1F", "size": [8, 18], "attach": { "to": "r_dock", "side": "E", "align": "start" } },
+    { "id": "r_office", "name": "调度室", "kind": "office", "floorId": "1F", "size": [8, 6], "attach": "northOf:r_store_a" },
+    { "id": "r_extract", "name": "北侧撤离闸口", "kind": "exit", "floorId": "1F", "size": [10, 6], "attach": "northOf:r_store_b" }
+  ],
+  "doors": [
+    { "id": "d_dock_a", "name": "A仓门", "between": ["r_dock", "r_store_a"], "at": 0.5, "width": 2.2 },
+    { "id": "d_dock_b", "name": "B仓南门", "between": ["r_dock", "r_store_b"], "at": 0.5, "width": 2.0 },
+    { "id": "d_a_b", "name": "货仓连通门", "between": ["r_store_a", "r_store_b"], "at": 0.5, "width": 2.0 },
+    { "id": "d_a_off", "name": "调度门", "between": ["r_store_a", "r_office"], "at": 0.5, "width": 1.8 },
+    { "id": "d_b_ext", "name": "撤离门", "between": ["r_store_b", "r_extract"], "at": 0.5, "width": 2.2 }
+  ],
+  "objects": [
+    { "id": "o_crate_1", "name": "南货箱", "kind": "supply", "floorId": "1F", "solid": true, "points": [[3, 12], [5, 12], [5, 14], [3, 14]] },
+    { "id": "o_crate_2", "name": "中货箱", "kind": "supply", "floorId": "1F", "solid": true, "points": [[9, 12], [11, 12], [11, 14], [9, 14]] },
+    { "id": "o_crate_3", "name": "北货箱", "kind": "supply", "floorId": "1F", "solid": true, "points": [[3, 16], [5, 16], [5, 18], [3, 18]] },
+    { "id": "o_pillar_b", "name": "B仓承重柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[13, 12], [14.5, 12], [14.5, 13.5], [13, 13.5]] },
+    { "id": "o_desk_off", "name": "调度台", "kind": "desk", "floorId": "1F", "solid": true, "points": [[4, 22], [6, 22], [6, 23.5], [4, 23.5]] }
+  ],
+  "enemies": [
+    { "id": "e_a1", "name": "仓管哨兵", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_store_a", "center": [8.5, 16.5] },
+    { "id": "e_b1", "name": "通道重装", "enemyType": "elite", "tier": "elite", "branch": "main", "floorId": "1F", "roomId": "r_store_b", "center": [17.5, 13] },
+    { "id": "e_off", "name": "调度精英", "enemyType": "ranged", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "r_office", "center": [9, 24] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "清场主线", "kind": "main", "floorId": "1F", "points": [[3, 3], [7, 5], [7, 15], [16, 15], [16, 23]] },
+    { "id": "rt_exit", "name": "东线快速撤离", "kind": "exit", "floorId": "1F", "points": [[7, 6], [16, 6], [16, 24]] }
+  ]
+}

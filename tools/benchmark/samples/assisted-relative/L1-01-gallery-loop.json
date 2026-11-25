@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L1-01 展馆回环 · Assisted Relative",
+    "units": "m",
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L1-01", "generatedAt": "2026-11-13" },
+    "player": { "radius": 0.35, "height": 1.7, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [{ "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 }],
+  "rooms": [
+    { "id": "r_entry", "name": "入口门厅", "kind": "entry", "floorId": "1F", "size": [10, 8], "attach": { "at": [6, 6] } },
+    { "id": "r_main", "name": "中央展厅", "kind": "gallery", "floorId": "1F", "size": [10, 8], "attach": "northOf:r_entry" },
+    { "id": "r_wing", "name": "东翼回廊", "kind": "corridor", "floorId": "1F", "size": [8, 16], "attach": { "to": "r_entry", "side": "E", "align": "start" } },
+    { "id": "r_exit", "name": "离场廊", "kind": "exit", "floorId": "1F", "size": [10, 6], "attach": "northOf:r_main" }
+  ],
+  "doors": [
+    { "id": "d_entry_main", "name": "正门", "between": ["r_entry", "r_main"], "at": 0.5, "width": 2 },
+    { "id": "d_entry_wing", "name": "东翼前门", "between": ["r_entry", "r_wing"], "at": 0.5, "width": 1.8 },
+    { "id": "d_main_wing", "name": "东翼北门", "between": ["r_main", "r_wing"], "at": 0.5, "width": 1.8 },
+    { "id": "d_main_exit", "name": "离场门", "between": ["r_main", "r_exit"], "at": 0.5, "width": 2 }
+  ],
+  "objects": [
+    { "id": "o_altar", "name": "中央展台", "kind": "altar", "floorId": "1F", "solid": true, "points": [[5, 13], [7, 13], [7, 15], [5, 15]] },
+    { "id": "o_bench", "name": "门厅长凳", "kind": "bench", "floorId": "1F", "solid": true, "points": [[3, 3], [5, 3], [5, 4], [3, 4]] },
+    { "id": "o_wing_display", "name": "东翼展柜", "kind": "display", "floorId": "1F", "solid": true, "points": [[15.5, 9], [17.5, 9], [17.5, 11], [15.5, 11]] }
+  ],
+  "enemies": [
+    { "id": "e_main", "name": "展厅守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_main", "center": [8, 15] },
+    { "id": "e_wing", "name": "回廊哨兵", "enemyType": "elite", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "r_wing", "center": [14, 12] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "主线", "kind": "main", "floorId": "1F", "points": [[6, 5], [6, 12], [2, 14], [6, 17], [6, 21]] },
+    { "id": "rt_opt", "name": "东翼绕行", "kind": "optional", "floorId": "1F", "points": [[6, 6], [14, 6], [14, 15], [9, 15]] }
+  ]
+}

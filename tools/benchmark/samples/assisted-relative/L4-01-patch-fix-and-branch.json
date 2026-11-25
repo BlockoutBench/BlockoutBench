@@ -1,0 +1,18 @@
+{
+  "patch": {
+    "upsertRooms": [
+      { "id": "r_safe", "name": "安全休整侧室", "kind": "rest", "floorId": "1F", "size": [6, 6], "attach": "eastOf:r_entry" }
+    ],
+    "upsertDoors": [
+      { "id": "d_north", "name": "北门（已贴边）", "floorId": "1F", "between": ["r_entry", "r_north"], "at": 0.5, "width": 2 },
+      { "id": "d_safe", "name": "侧室门", "between": ["r_entry", "r_safe"], "at": 0.5, "width": 1.8 }
+    ],
+    "upsertObjects": [
+      { "id": "o_case_block", "name": "靠墙展柜", "kind": "display", "floorId": "1F", "solid": true, "points": [[8, 14], [10, 14], [10, 16], [8, 16]] },
+      { "id": "o_safe_supply", "name": "侧室整备补给台", "kind": "supply", "floorId": "1F", "solid": true, "height": 0.8, "points": [[13.5, 5], [15, 5], [15, 6.5], [13.5, 6.5]] }
+    ],
+    "upsertRoutes": [
+      { "id": "rt_safe", "name": "休整侧室支线", "kind": "optional", "floorId": "1F", "points": [[6, 6], [10, 6], [12.4, 5.8]] }
+    ]
+  }
+}

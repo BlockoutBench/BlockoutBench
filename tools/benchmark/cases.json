@@ -1,0 +1,229 @@
+{
+  "version": "2.0",
+  "title": "LevelWorkbench 商业级白盒评测题库 v2（L1～L6）",
+  "cases": [
+    {
+      "id": "L1-01-gallery-loop",
+      "tier": "L1",
+      "title": "单层展馆回环拼接",
+      "mode": "create",
+      "prompt": "设计一座单层博物馆展厅（4～7 间房，bounds 清晰，player.radius=0.35m）。需要包含入口门厅、主展厅、侧翼回廊与离场廊，通过至少 1 条绕行回环连接主展厅与侧翼，不能出现孤立房或无回报死胡同；所有大型战斗厅（≥6×6m）需配置展台/掩体，敌人不要紧贴门洞刷新。输出符合 AI_MAP_SPEC v1 或相对贴靠格式（size/attach、door.between）的纯 JSON。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 1,
+        "minRooms": 4,
+        "maxRooms": 7,
+        "minLoopCount": 1,
+        "maxDeadEndRatio": 0,
+        "zeroUnreachableRooms": true,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "mustContainRouteKinds": ["main", "optional"]
+      }
+    },
+    {
+      "id": "L1-02-warehouse-extraction",
+      "tier": "L1",
+      "title": "密集掩体仓库与多线撤离",
+      "mode": "create",
+      "prompt": "设计一座单层中转仓库白盒（5～9 间房，player.radius=0.35m）。包含至少 5 处实体掩体（货箱/柱阵），交火区需有掩护且不得阻塞任何 main/exit 路线，也不要在门口贴脸刷怪；整体形成可绕行环路，没有无回报死胡同，并明确标出主攻与撤离路线（撤离点用 kind: \"extract\"）。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 1,
+        "minRooms": 5,
+        "maxRooms": 9,
+        "minSolidCover": 5,
+        "minLoopCount": 1,
+        "maxDeadEndRatio": 0,
+        "zeroUnreachableRooms": true,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "mustContainRouteKinds": ["main", "exit"]
+      }
+    },
+    {
+      "id": "L2-01-courtyard-threefloor",
+      "tier": "L2",
+      "title": "三层中庭垂直对齐与跨层采光挑空",
+      "mode": "create",
+      "prompt": "设计一座三层庭院遗迹（1F/2F/3F 或 B1/1F/2F，至少 5 间房）。1F 需包含真正的露天中庭（wallHeight: 0），上方 2F/3F 仅围绕中庭局部布置回廊与圣坛，禁止整块实心楼板把露天中庭全部盖死；上下层存在跨层投影叠合，使用至少 2 座标明 stairs.bottom（N/S/E/W）的楼梯连通三层。每个战斗区域应有合理陈设或掩体，不能出现无回报死胡同。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 3,
+        "minRooms": 5,
+        "minObjects": 3,
+        "minStairs": 2,
+        "requireStairBottom": true,
+        "minVerticalOverlapPairs": 2,
+        "requireOpenCourtyardOrEdge": true,
+        "maxCourtyardCoverRatio": 0.65,
+        "maxDeadEndRatio": 0,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "zeroUnreachableRooms": true,
+        "mustContainRouteKinds": ["main"]
+      }
+    },
+    {
+      "id": "L2-02-highground-overlook",
+      "tier": "L2",
+      "title": "双层高台敞边真俯瞰与分支捷径",
+      "mode": "create",
+      "prompt": "设计一座双层神殿高台白盒（至少 4 间房）。2F 观察走廊通过 openEdges 真实敞向下方 1F 主大厅形成低视距俯瞰（注意多边形顶点顺序与 openEdges 索引，不要把敞开边朝向建筑外侧空白或被实体墙堵死），使用写明 stairs.bottom 的楼梯连接上下层，密室/分支末端需有回报，同时给出主线与可选侦察路线。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 2,
+        "minRooms": 4,
+        "minStairs": 1,
+        "requireStairBottom": true,
+        "minVerticalOverlapPairs": 1,
+        "requireOpenCourtyardOrEdge": true,
+        "requireValidOverlook": true,
+        "maxDeadEndRatio": 0,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "zeroUnreachableRooms": true,
+        "mustContainRouteKinds": ["main", "optional"]
+      }
+    },
+    {
+      "id": "L3-01-dual-lock-relay",
+      "tier": "L3",
+      "title": "双锁机关状态机与零死锁",
+      "mode": "create",
+      "prompt": "设计一座带机关锁闭的密室关卡（至少 4 间房）：宝库门或石闸初始处于关闭/阻挡状态（initial: closed 或 states solid: true，若用 stone-gate 等高墙物件请写明合理高度），玩家需在可达前置分支中触发 2 个以上开关与联动 links 逐级解锁后才能进入终点宝库。严禁把开关锁在待开启的门后导致死锁，战斗房内不要贴门刷怪且需有掩护。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minRooms": 4,
+        "minLinks": 2,
+        "noDeadlock": true,
+        "maxDeadEndRatio": 0,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.0,
+        "zeroUnreachableRooms": true,
+        "mustContainRouteKinds": ["main"]
+      }
+    },
+    {
+      "id": "L4-01-patch-fix-and-branch",
+      "tier": "L4",
+      "title": "局部 { patch } 修缺陷并扩建有回报安全侧室",
+      "mode": "patch",
+      "baseMap": "tools/benchmark/fixtures/l4-base-broken.json",
+      "prompt": "读取给定的残次地图与批注：1）把脱边北门 d_north 吸附回 r_entry 与 r_north 共享边；2）把挡住主线净空的展柜 o_case_block 挪到不阻挡路线的位置；3）在 r_entry 东侧新增 6×6 安全休整侧室 r_safe、连通门 d_safe 以及室内休整/补给物件与可选探索线，不能留下空壳无回报尽头。只输出 { \"patch\": ... } 增量 JSON，严禁改动 r_entry、r_north、e_guard 等无关既有实体。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "zeroUnreachableRooms": true,
+        "maxDeadEndRatio": 0,
+        "mustIncludeIds": ["r_safe", "d_safe"],
+        "preserveIds": ["r_entry", "r_north", "e_guard"],
+        "allowedEditIds": ["d_north", "o_case_block"],
+        "zeroCollateralEdits": true
+      }
+    },
+    {
+      "id": "L5-01-sunken-gallery-complex",
+      "tier": "L5",
+      "title": "三层非矩形采光中庭与立体交火综合体",
+      "mode": "create",
+      "prompt": "设计一座完整的商业级三层建筑白盒（B1/1F/2F，至少 10 间房，player.radius=0.4m）：1）1F 中心设置大型露天中庭（wallHeight: 0），要求至少 2 个房间采用 L 形/U 形/多边形等非矩形设计，其中 2F 围绕中庭一侧或两侧做挑空回廊（openEdges 真正朝向中庭内部向下俯瞰，保留大面积露天采光井，绝不能把中庭上方完全封死）；2）3 座以上标明 stairs.bottom 的跨层楼梯分别连通 B1 地下秘库与 2F 圣坛，全图形成多条立体回环且无任何无回报死胡同；3）至少 5 名敌人形成“前厅冷静入场与热身 → 中段探索与喘息 → 2F Boss 高潮决战 → 撤离坪脱出”的节奏起伏，大型战斗区全配掩体、严禁贴门刷怪，明确标出 main / optional（地下秘库含圣遗物等回报）/ exit 三类路线。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 3,
+        "minRooms": 10,
+        "minNonRectRooms": 2,
+        "minStairs": 3,
+        "requireStairBottom": true,
+        "minVerticalOverlapPairs": 3,
+        "requireOpenCourtyardOrEdge": true,
+        "maxCourtyardCoverRatio": 0.60,
+        "requireValidOverlook": true,
+        "minLoopCount": 2,
+        "maxDeadEndRatio": 0,
+        "zeroUnreachableRooms": true,
+        "minEnemies": 5,
+        "minSolidCover": 6,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "minPeakPosition": 0.45,
+        "requirePrePeakRest": true,
+        "mustContainRouteKinds": ["main", "optional", "exit"]
+      }
+    },
+    {
+      "id": "L5-02-clockwork-lock-citadel",
+      "tier": "L5",
+      "title": "双阶联动机关+状态桥闸+节奏Boss要塞",
+      "mode": "create",
+      "prompt": "设计一座双层高难机关要塞白盒（至少 8 间房，至少含 1 间非矩形 Boss 圣殿与 2F 俯瞰走廊 openEdges，至少 2 座标明 bottom 的楼梯）：构建两阶段零死锁机关进度（至少 4 条 links 串联，至少 2 个带 states 的石闸/可动机关物件以及 initial: \"closed\" 锁门）：第一阶段需在两侧可达偏殿先后或协同激活双开关，一边打开内院封门，一边开启回归中枢的捷径回环减少无效折返；第二阶段登上 2F 经俯瞰廊与中继厅激活核心开关解锁封闭的 Boss 圣殿，击败 Boss 后再联动解锁战利品宝箱。节奏需先热身、中段解谜喘息、高潮集中在后半程 Boss 战，所有战斗区均配掩体且无开门杀、无空壳死胡同。",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "minFloors": 2,
+        "minRooms": 8,
+        "minNonRectRooms": 1,
+        "minStairs": 2,
+        "requireStairBottom": true,
+        "requireValidOverlook": true,
+        "minLoopCount": 1,
+        "maxDeadEndRatio": 0,
+        "zeroUnreachableRooms": true,
+        "minStatefulObjects": 2,
+        "minLinks": 4,
+        "noDeadlock": true,
+        "minEnemies": 4,
+        "maxEmptyCombatRooms": 0,
+        "minDoorEnemyDistM": 2.3,
+        "minPeakPosition": 0.50,
+        "requirePrePeakRest": true,
+        "mustContainRouteKinds": ["main", "optional"]
+      }
+    },
+    {
+      "id": "L6-01-patch-wing-rework",
+      "tier": "L6",
+      "title": "复杂双层遗迹多缺陷联合诊断与无副作用局部重构",
+      "mode": "patch",
+      "baseMap": "tools/benchmark/fixtures/l6-base-complex-broken.json",
+      "prompt": "审阅给定双层遗迹的局部上下文与 reviewNotes：当前存在多类隐蔽设计与规范缺陷（包括窄门、二层门脱边、石柱挡住主线、前厅误放 Boss 而二层王座厅只有普通小兵的节奏倒置、西殿精英贴门刷怪的开门杀，以及二层书房无回报空置）。请只输出 { \"patch\": ... } 增量 JSON：一并修复上述全部问题，并在西殿西南侧（不超出 bounds）扩建一间 L 形非矩形秘宝侧室 r_vault_l、门 d_vault_l、室内部署战利品与探索支线。严禁改动与修复无关的东翼、北侧神龛、前厅/主庭/楼梯等既有实体的坐标或属性！",
+      "hardChecks": {
+        "requireZeroPreSnapErrors": true,
+        "requireZeroPostWarnings": true,
+        "maxSnapFixCount": 0,
+        "zeroUnreachableRooms": true,
+        "maxDeadEndRatio": 0,
+        "minNonRectRooms": 1,
+        "minPeakPosition": 0.50,
+        "minDoorEnemyDistM": 2.3,
+        "maxEmptyCombatRooms": 0,
+        "mustIncludeIds": ["r_vault_l", "d_vault_l"],
+        "preserveIds": [
+          "r_foyer", "r_hub", "r_east_hall", "r_north_shrine", "r_west_wing",
+          "r_2f_east", "r_2f_overlook", "r_2f_study", "r_2f_throne",
+          "d_foyer_hub", "d_hub_east", "d_hub_north", "d_2f_study", "d_2f_throne",
+          "st_east_up", "e_east", "e_north"
+        ],
+        "allowedEditIds": [
+          "d_west_wing", "d_2f_balcony", "o_pillar_block",
+          "e_boss_front", "e_throne_guard", "e_camp_west", "rt_main"
+        ],
+        "zeroCollateralEdits": true
+      }
+    }
+  ]
+}

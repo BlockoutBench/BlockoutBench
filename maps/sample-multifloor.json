@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "AI 样本 · 三层庭院",
+    "subtitle": "演示可选字段：露天庭院 wallHeight 0、楼梯 bottom、跨层路线 [x,z,y]",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 28, "maxZ": 20 },
+    "provenance": {
+      "kind": "design",
+      "label": "AI 样本 · 多层 v1",
+      "source": "AI_MAP_SPEC.md",
+      "generatedAt": "2026-10-24"
+    },
+    "player": {
+      "radius": 0.35,
+      "height": 1.7,
+      "walkSpeed": 4,
+      "rollDistance": 3,
+      "rollDuration": 0.3,
+      "interactionRange": 2
+    },
+    "legendLabels": { "main": "主线", "optional": "可选" },
+    "designNotes": [
+      "门厅进入后两条分支：东侧露天庭院（无墙，wallHeight 0）是可选战斗；北侧楼梯间上二层回廊是主线。",
+      "楼梯间里两段楼梯：s_up 低端在西（bottom W）上 2F；s_down 低端在东（bottom E）下 B1 储藏。",
+      "主线最后三个点写了标高 y，3D 里能看到它沿楼梯爬上 +4 m。"
+    ]
+  },
+  "floors": [
+    { "id": "B1", "name": "B1 储藏", "elevation": -3, "height": 3, "note": "楼梯间下方的可选储藏室。" },
+    { "id": "1F", "name": "1F 门厅 / 庭院", "elevation": 0, "height": 4, "note": "入口层；东侧庭院露天。" },
+    { "id": "2F", "name": "2F 回廊", "elevation": 4, "height": 3.5, "note": "主线终点，俯瞰庭院。" }
+  ],
+  "rooms": [
+    {
+      "id": "b1_store",
+      "name": "地下储藏",
+      "short": "储藏",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "B1",
+      "color": "#d8ccb4",
+      "points": [[2, 12], [14, 12], [14, 18], [2, 18]]
+    },
+    {
+      "id": "f1_hall",
+      "name": "门厅",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e7dcc5",
+      "points": [[2, 2], [14, 2], [14, 12], [2, 12]],
+      "beat": "进入 / 第一次接敌"
+    },
+    {
+      "id": "f1_court",
+      "name": "露天庭院",
+      "short": "庭院",
+      "kind": "atrium",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#dfe3cf",
+      "wallHeight": 0,
+      "points": [[14, 2], [26, 2], [26, 12], [14, 12]],
+      "beat": "可选精英战"
+    },
+    {
+      "id": "f1_stairs",
+      "name": "楼梯间",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e2d8c5",
+      "points": [[2, 12], [8, 12], [8, 18], [2, 18]]
+    },
+    {
+      "id": "f2_gallery",
+      "name": "二层回廊",
+      "short": "回廊",
+      "kind": "gallery",
+      "status": "planned",
+      "floorId": "2F",
+      "color": "#e9dfca",
+      "points": [[2, 12], [26, 12], [26, 18], [2, 18]],
+      "beat": "Boss / 终点"
+    }
+  ],
+  "objects": [
+    { "id": "o_desk", "name": "接待台", "kind": "desk", "floorId": "1F", "solid": true, "points": [[3, 5], [6, 5], [6, 6], [3, 6]] },
+    { "id": "o_fountain", "name": "庭院喷泉", "kind": "fountain", "floorId": "1F", "solid": true, "height": 0.8, "points": [[18, 5], [22, 5], [22, 9], [18, 9]] },
+    { "id": "o_case_2f", "name": "回廊展柜", "kind": "display", "floorId": "2F", "solid": true, "points": [[10, 16], [12, 16], [12, 17], [10, 17]] },
+    { "id": "o_crates", "name": "储藏木箱", "kind": "supply", "floorId": "B1", "solid": true, "points": [[10, 13], [12, 13], [12, 14.5], [10, 14.5]] }
+  ],
+  "water": [
+    { "id": "w_fountain", "name": "喷泉水面", "kind": "fountain", "floorId": "1F", "points": [[18.5, 5.5], [21.5, 5.5], [21.5, 8.5], [18.5, 8.5]] }
+  ],
+  "stairs": [
+    { "id": "s_up", "name": "上回廊楼梯", "points": [[3, 13], [7, 13], [7, 15], [3, 15]], "fromFloorId": "1F", "toFloorId": "2F", "direction": "up", "bottom": "W" },
+    { "id": "s_down", "name": "下储藏楼梯", "points": [[3, 15.5], [7, 15.5], [7, 17.5], [3, 17.5]], "fromFloorId": "1F", "toFloorId": "B1", "direction": "down", "bottom": "E" }
+  ],
+  "enemies": [
+    { "id": "e_hall", "name": "门厅守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "f1_hall", "center": [10, 8] },
+    { "id": "e_court", "name": "庭院精英", "enemyType": "elite", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "f1_court", "center": [22, 4] },
+    { "id": "e_store", "name": "储藏潜伏者", "enemyType": "melee", "tier": "normal", "branch": "optional", "floorId": "B1", "roomId": "b1_store", "center": [11, 16] },
+    { "id": "e_boss", "name": "回廊守卫长", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "2F", "roomId": "f2_gallery", "center": [20, 15] }
+  ],
+  "doors": [
+    { "id": "d_entry", "name": "入口", "floorId": "1F", "points": [[7, 2], [9, 2]], "width": 2 },
+    { "id": "d_court", "name": "庭院门", "floorId": "1F", "points": [[14, 6], [14, 8]], "width": 2 },
+    { "id": "d_stairs", "name": "楼梯间门", "floorId": "1F", "points": [[4, 12], [6, 12]], "width": 2 }
+  ],
+  "routes": [
+    {
+      "id": "main",
+      "name": "主线",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [[8, 3], [8, 9], [5, 10], [5, 12.5], [3.5, 14, 0], [6.5, 14, 4], [10, 14.5, 4], [24, 14.5, 4]],
+      "note": "门厅 → 楼梯间 → 沿 s_up 上 2F → 回廊 Boss。"
+    },
+    {
+      "id": "court",
+      "name": "庭院可选",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [[8, 9], [14, 7], [17, 3.5], [24, 3.5]]
+    },
+    {
+      "id": "store",
+      "name": "储藏可选",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [[5, 12.5], [3.5, 16.5, 0], [6.5, 16.5, -3], [11, 15, -3]]
+    }
+  ],
+  "reviewNotes": [
+    { "id": "note-court", "text": "庭院露天：确认 Boss 在二层回廊是否能看到庭院战斗。", "status": "open", "targetId": "f1_court" }
+  ]
+}

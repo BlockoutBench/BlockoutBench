@@ -1,0 +1,36 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L5-01 三层综合体 · Baseline Raw (纯矩形无异形 + 中庭封死 + 缺楼梯朝向)",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 32, "maxZ": 28 },
+    "provenance": { "kind": "design", "label": "baseline-raw", "source": "L5-01", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "B1", "name": "B1", "elevation": -3.6, "height": 3.6 },
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 },
+    { "id": "2F", "name": "2F", "elevation": 3.6, "height": 3.6 }
+  ],
+  "rooms": [
+    { "id": "r_1f_foyer", "name": "入口", "kind": "entry", "status": "planned", "floorId": "1F", "points": [[2, 2], [10, 2], [10, 10], [2, 10]] },
+    { "id": "r_1f_court", "name": "露天中庭", "kind": "courtyard", "status": "planned", "floorId": "1F", "wallHeight": 0, "points": [[10, 2], [22, 2], [22, 14], [10, 14]] },
+    { "id": "r_1f_north", "name": "北厅", "kind": "hall", "status": "planned", "floorId": "1F", "points": [[10, 14], [22, 14], [22, 22], [10, 22]] },
+    { "id": "r_2f_cover_all", "name": "二层整块封死大厅", "kind": "gallery", "status": "planned", "floorId": "2F", "points": [[10, 2], [22, 2], [22, 14], [10, 14]] },
+    { "id": "r_b1_cell", "name": "地下室", "kind": "room", "status": "planned", "floorId": "B1", "points": [[10, 14], [22, 14], [22, 22], [10, 22]] }
+  ],
+  "doors": [
+    { "id": "d_1", "name": "门1", "floorId": "1F", "points": [[10, 5], [10, 7]], "width": 2.0 },
+    { "id": "d_2", "name": "门2", "floorId": "1F", "points": [[15, 14], [17, 14]], "width": 2.0 }
+  ],
+  "stairs": [
+    { "id": "st_up", "name": "缺朝向楼梯", "fromFloorId": "1F", "toFloorId": "2F", "points": [[12, 4], [15, 4], [15, 9], [12, 9]] }
+  ],
+  "objects": [],
+  "enemies": [
+    { "id": "e_boss_early", "name": "开场Boss", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "1F", "roomId": "r_1f_court", "center": [12, 6] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "主线", "kind": "main", "floorId": "1F", "points": [[6, 6, 0], [16, 6, 0], [16, 18, 0]] }
+  ]
+}

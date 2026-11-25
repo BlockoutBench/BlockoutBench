@@ -1,0 +1,28 @@
+{
+  "id": "Q001",
+  "title": "前哨仓库 · 修复有缺陷的图",
+  "type": "repair",
+  "taskMap": "题图.json",
+  "hard": {
+    "maxErrors": 0,
+    "maxWarnings": 0,
+    "sameIds": true,
+    "sameBounds": true
+  },
+  "targets": {
+    "peakPositionMin": 0.6,
+    "restBeforePeakMin": 6,
+    "warmupRatioMax": 0.6,
+    "warmupSpan": 0.4,
+    "unreachableMax": 0,
+    "optionalPayoffRadius": 3
+  },
+  "mayChange": ["d_elite", "d_side", "main", "opt_side", "e_elite", "e_hall_1", "e_hall_2", "o_supply"],
+  "review": [
+    "第一场战斗是否比最后一场简单（敌人更少或更弱）？",
+    "进入精英厅之前，玩家有没有一段没有敌人的路可以整备？",
+    "站在回廊里，能不能从门口预先看到精英厅的一部分？",
+    "绕去侧室是否值得（有补给或其他回报）？",
+    "撤离点是否需要打完最后一场战斗才能到达？"
+  ]
+}

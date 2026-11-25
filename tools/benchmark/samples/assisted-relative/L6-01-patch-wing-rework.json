@@ -1,0 +1,26 @@
+{
+  "patch": {
+    "upsertRooms": [
+      { "id": "r_vault_l", "name": "西南L形秘宝侧室", "kind": "vault", "status": "planned", "floorId": "1F", "points": [[2, 2], [8, 2], [8, 16], [4, 16], [4, 8], [2, 8]] }
+    ],
+    "upsertDoors": [
+      { "id": "d_west_wing", "name": "西殿大门（已拓宽）", "floorId": "1F", "points": [[14, 12], [14, 14]], "width": 2.0 },
+      { "id": "d_2f_balcony", "name": "二层俯瞰门（已贴边）", "floorId": "2F", "points": [[22, 15], [22, 17]], "width": 2.0 },
+      { "id": "d_vault_l", "name": "L形秘室门", "floorId": "1F", "points": [[8, 10], [8, 12]], "width": 2.0 }
+    ],
+    "upsertObjects": [
+      { "id": "o_pillar_block", "name": "移至东侧的石柱", "kind": "column", "floorId": "1F", "solid": true, "height": 3.6, "points": [[20, 9.5], [21.5, 9.5], [21.5, 11], [20, 11]] },
+      { "id": "o_study_chest", "name": "书房古籍宝匣", "kind": "loot", "floorId": "2F", "solid": true, "height": 0.8, "points": [[25.5, 21.5], [27, 21.5], [27, 23], [25.5, 23]] },
+      { "id": "o_vault_loot", "name": "秘宝侧室宝箱", "kind": "loot", "floorId": "1F", "solid": true, "height": 0.9, "points": [[3, 3.5], [5, 3.5], [5, 5.2], [3, 5.2]] }
+    ],
+    "upsertEnemies": [
+      { "id": "e_boss_front", "name": "前厅轻甲巡卫（热身）", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_foyer", "center": [19.8, 4.2] },
+      { "id": "e_camp_west", "name": "西殿伏击精英（掩体后）", "enemyType": "elite", "tier": "elite", "branch": "optional", "floorId": "1F", "roomId": "r_west_wing", "center": [10.5, 16.8] },
+      { "id": "e_throne_guard", "name": "二层王座大统领（高潮Boss）", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "2F", "roomId": "r_2f_throne", "center": [18, 23] }
+    ],
+    "upsertRoutes": [
+      { "id": "rt_vault_l", "name": "西南L形秘宝支线", "kind": "optional", "floorId": "1F", "points": [[12, 13, 0], [8, 11, 0], [6, 11, 0], [6, 7, 0]] },
+      { "id": "rt_study", "name": "书房搜寻支线", "kind": "optional", "floorId": "2F", "points": [[26, 16, 3.6], [26, 18, 3.6], [26.2, 20.5, 3.6]] }
+    ]
+  }
+}

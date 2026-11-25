@@ -1,0 +1,39 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L2-02 双层高台俯瞰 · Assisted Relative",
+    "units": "m",
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L2-02", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 3.8 },
+    { "id": "2F", "name": "2F", "elevation": 3.8, "height": 3.4 }
+  ],
+  "rooms": [
+    { "id": "r_1f_hall", "name": "底层主大厅", "kind": "hall", "floorId": "1F", "size": [14, 16], "attach": { "at": [9, 10] } },
+    { "id": "r_1f_side", "name": "底层东密室", "kind": "room", "floorId": "1F", "size": [8, 10], "attach": { "to": "r_1f_hall", "side": "E", "align": "start" } },
+    { "id": "r_2f_balcony", "name": "二层俯瞰高台", "kind": "gallery", "floorId": "2F", "openEdges": [2], "status": "planned", "points": [[2, 2], [16, 2], [16, 8], [2, 8]] },
+    { "id": "r_2f_watch", "name": "二层东瞭望室", "kind": "room", "floorId": "2F", "size": [8, 8], "attach": { "to": "r_2f_balcony", "side": "E", "align": "start" } }
+  ],
+  "doors": [
+    { "id": "d_1f_side", "name": "密室门", "between": ["r_1f_hall", "r_1f_side"], "at": 0.5, "width": 2.0 },
+    { "id": "d_2f_watch", "name": "瞭望门", "between": ["r_2f_balcony", "r_2f_watch"], "at": 0.5, "width": 2.0 }
+  ],
+  "stairs": [
+    { "id": "st_up", "name": "高台阶梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "W", "points": [[3, 3], [8, 3], [8, 6], [3, 6]] }
+  ],
+  "objects": [
+    { "id": "o_pillar_1", "name": "大厅石柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[5, 12], [6.5, 12], [6.5, 13.5], [5, 13.5]] },
+    { "id": "o_loot_side", "name": "密室宝箱", "kind": "loot", "floorId": "1F", "solid": false, "points": [[19, 8], [21, 8], [21, 10], [19, 10]] },
+    { "id": "o_watch_cover", "name": "瞭望掩体", "kind": "cover", "floorId": "2F", "solid": true, "height": 1.1, "points": [[19, 7], [21, 7], [21, 8], [19, 8]] }
+  ],
+  "enemies": [
+    { "id": "e_hall", "name": "大厅守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_1f_hall", "center": [10, 14] },
+    { "id": "e_watch", "name": "高台弓手", "enemyType": "ranged", "tier": "elite", "branch": "main", "floorId": "2F", "roomId": "r_2f_watch", "center": [21, 5] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "登高主线", "kind": "main", "floorId": "1F", "points": [[12, 15, 0], [3, 4.5, 0], [8, 4.5, 3.8], [16, 6, 3.8], [19, 5, 3.8]] },
+    { "id": "rt_opt", "name": "东翼搜索", "kind": "optional", "floorId": "1F", "points": [[13, 8, 0], [16, 7, 0], [20, 9, 0]] }
+  ]
+}

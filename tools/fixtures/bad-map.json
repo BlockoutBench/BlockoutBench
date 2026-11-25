@@ -1,0 +1,73 @@
+{
+  "schemaVersion": 2,
+  "meta": {
+    "title": "故意写错的地图（校验器回归用）",
+    "units": "cm",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 20, "maxZ": 20 },
+    "provenance": { "kind": "design", "label": "fixture" },
+    "player": { "radius": 0.5, "height": 1.7, "walkSpeed": -1, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 },
+    "kindLegend": { "bell": { "note": "缺 label" } },
+    "proximity": [
+      { "id": "px_noname", "radius": 6, "kinds": ["column"] },
+      { "id": "px_bad", "name": "坏规则", "radius": 0, "kinds": ["column"] },
+      { "id": "px_typo", "name": "拼错", "radius": 6, "kinds": ["colum"] }
+    ],
+    "legendLabels": { "main": "" }
+  },
+  "floors": [
+    { "id": "2F", "name": "2F", "elevation": 4, "height": 3 },
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 0 },
+    { "id": 6, "name": "数字楼层", "elevation": 8, "height": 3 },
+    { "id": "1F", "name": "dup", "elevation": "x", "height": 3 }
+  ],
+  "rooms": [
+    { "id": "r_shape", "name": "点写成数字", "kind": "room", "status": "planned", "floorId": "1F", "points": 5 },
+    { "id": "r_edges", "name": "开放边越界", "kind": "room", "status": "planned", "floorId": "1F", "openEdges": [0, 4], "points": [[16, 0], [20, 0], [20, 4], [16, 4]] },
+    { "id": "a", "name": "A", "kind": "room", "status": "planned", "floorId": "1F", "wallHeight": -1, "points": [[0, 0], [10, 0], [10, 10], [0, 10]] },
+    { "id": "b", "name": "B", "kind": "room", "status": "weird", "floorId": "1F", "points": [[5, 5], [15, 5], [15, 15], [5, 15]] },
+    { "id": "tiny", "name": "T", "kind": "room", "status": "planned", "floorId": "1F", "points": [[18, 18], [18.5, 18], [18.5, 18.5]] },
+    { "id": "a", "name": "dup", "kind": "room", "status": "planned", "floorId": "3F", "points": [[0, 0], [1, 0]] },
+    { "id": "oob", "name": "out", "kind": "room", "status": "planned", "floorId": "2F", "points": [[0, 0], [30, 0], [30, 5], "bad"] }
+  ],
+  "objects": [
+    { "id": 7, "name": "数字 id", "kind": "other", "floorId": "1F", "points": [[16, 3], [17, 3], [17, 4], [16, 4]] },
+    { "id": "o_hang", "name": "负离地", "kind": "other", "floorId": "1F", "baseHeight": -1, "points": [[16, 1], [17, 1], [17, 2], [16, 2]] },
+    { "id": "o_states", "name": "单状态", "kind": "other", "floorId": "1F", "points": [[16, 1], [17, 1], [17, 2], [16, 2]], "states": [{ "id": "only" }] },
+    { "id": "o_slot", "name": "坏卡位", "kind": "other", "floorId": "1F", "points": [[16, 1], [17, 1], [17, 2], [16, 2]], "initialState": "slot_x", "states": [{ "id": "slot_a", "points": [[16, 1], [17, 1]] }, { "id": "slot_b" }] },
+    { "id": "o_gate", "name": "闸", "kind": "other", "floorId": "1F", "points": [[18, 1], [19, 1], [19, 2], [18, 2]], "states": [{ "id": "closed" }, { "id": "open", "present": false }] },
+    { "id": "pillar", "name": "柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[4, 4], [5, 4], [5, 5], [4, 5]] },
+    { "id": "bad id", "name": "x", "kind": "other", "floorId": "1F", "points": [[1, 1], [2, 1]] }
+  ],
+  "enemies": [
+    { "id": "e1", "name": "e1", "enemyType": "melee", "tier": "mini", "branch": "side", "floorId": "1F", "roomId": "a", "center": [12, 12] },
+    { "id": "e2", "name": "e2", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "2F", "roomId": "a", "center": [2, 2] },
+    { "id": "e3", "name": "e3", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "nope", "center": [2] },
+    { "id": "e4", "name": "e4", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "a", "center": [40, 2] }
+  ],
+  "doors": [
+    { "id": "d_lock", "name": "坏状态门", "floorId": "1F", "points": [[17, 0], [18, 0]], "width": 1, "initial": "ajar", "height": 0 },
+    { "id": "d_shut", "name": "打不开的门", "floorId": "1F", "points": [[20, 1], [20, 2]], "width": 1, "initial": "closed" },
+    { "id": "d1", "name": "窄门", "floorId": "1F", "points": [[10, 2], [10, 2.8]], "width": 0.8 },
+    { "id": "d2", "name": "浮门", "floorId": "1F", "points": [[3, 3], [4, 3]], "width": 1 },
+    { "id": "d3", "name": "坏门", "floorId": "1F", "points": [[1, 1]], "width": 0 }
+  ],
+  "routes": [
+    { "id": "r1", "name": "可选", "kind": "optional", "floorId": "1F", "points": [[1, 4.5], [9, 4.5, 0.5]] },
+    { "id": "r2", "name": "怪线", "kind": "side", "floorId": "1F", "points": [[1, 1]] }
+  ],
+  "stairs": [
+    "楼梯写成了字符串",
+    { "id": "s1", "name": "梯", "fromFloorId": "1F", "toFloorId": "9F", "bottom": "up", "points": [[1, 1], [2, 1]] }
+  ],
+  "water": [
+    { "id": "w1", "name": "池", "floorId": "1F", "points": [[1, 1], [2, 1]] }
+  ],
+  "links": [
+    { "id": "lk_bad_ends", "name": "缺端点", "from": [], "to": [{ "id": "o_gate", "state": "open" }], "require": "both" },
+    { "id": "lk_unknown", "name": "接错", "from": ["ghost_switch"], "to": [{ "id": "ghost_door", "state": "open" }, { "id": "o_gate", "state": "half" }, { "id": "d_lock", "state": "ajar" }] }
+  ],
+  "reviewNotes": [
+    { "id": "n1", "text": "x", "status": "todo", "targetId": "ghost" },
+    { "id": "n2", "text": "空地上的意见", "status": "open", "at": [99, 99], "floorId": "9F" }
+  ]
+}

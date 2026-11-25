@@ -1,0 +1,157 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "AI 样本 · 双厅回廊",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 32, "maxZ": 24 },
+    "provenance": {
+      "kind": "design",
+      "label": "AI 样本 · v1",
+      "source": "AI_MAP_SPEC.md",
+      "generatedAt": "2026-10-23"
+    },
+    "player": {
+      "radius": 0.35,
+      "height": 1.7,
+      "walkSpeed": 4,
+      "rollDistance": 3,
+      "rollDuration": 0.3,
+      "interactionRange": 2
+    },
+    "legendLabels": {
+      "main": "主线",
+      "optional": "可选",
+      "exit": "离场"
+    }
+  },
+  "floors": [
+    { "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 }
+  ],
+  "rooms": [
+    {
+      "id": "r_entry",
+      "name": "入口门厅",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e7dcc5",
+      "points": [[2, 2], [10, 2], [10, 10], [2, 10]]
+    },
+    {
+      "id": "r_main",
+      "name": "中央展厅",
+      "kind": "gallery",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e2d8c5",
+      "points": [[10, 2], [22, 2], [22, 14], [10, 14]]
+    },
+    {
+      "id": "r_exit",
+      "name": "离场廊",
+      "kind": "corridor",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#ddd6c7",
+      "points": [[22, 6], [30, 6], [30, 10], [22, 10]]
+    }
+  ],
+  "objects": [
+    {
+      "id": "o_altar",
+      "name": "中央祭台",
+      "kind": "altar",
+      "floorId": "1F",
+      "solid": true,
+      "points": [[14, 6], [18, 6], [18, 10], [14, 10]]
+    },
+    {
+      "id": "o_bench_entry",
+      "name": "入口长凳",
+      "kind": "bench",
+      "floorId": "1F",
+      "solid": false,
+      "points": [[6, 7], [8, 7], [8, 8], [6, 8]]
+    },
+    {
+      "id": "o_case",
+      "name": "北墙展柜",
+      "kind": "display",
+      "floorId": "1F",
+      "solid": true,
+      "points": [[12, 13], [14, 13], [14, 14], [12, 14]]
+    }
+  ],
+  "enemies": [
+    {
+      "id": "e01",
+      "name": "入口守卫",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_main",
+      "center": [12, 4]
+    },
+    {
+      "id": "e02",
+      "name": "展厅精英",
+      "enemyType": "elite",
+      "tier": "elite",
+      "branch": "main",
+      "floorId": "1F",
+      "roomId": "r_main",
+      "center": [18, 12]
+    },
+    {
+      "id": "e03",
+      "name": "离场巡逻",
+      "enemyType": "melee",
+      "tier": "normal",
+      "branch": "optional",
+      "floorId": "1F",
+      "roomId": "r_exit",
+      "center": [26, 8]
+    }
+  ],
+  "doors": [
+    {
+      "id": "d_entry",
+      "name": "入口门",
+      "floorId": "1F",
+      "points": [[10, 4], [10, 6]],
+      "width": 2
+    },
+    {
+      "id": "d_exit",
+      "name": "离场门",
+      "floorId": "1F",
+      "points": [[22, 7], [22, 9]],
+      "width": 2
+    }
+  ],
+  "routes": [
+    {
+      "id": "main",
+      "name": "主线",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [[3, 6], [10, 6], [14, 12], [20, 12], [26, 8], [29, 8]]
+    },
+    {
+      "id": "optional",
+      "name": "展厅可选回环",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [[12, 3], [20, 3], [20, 5]]
+    }
+  ],
+  "reviewNotes": [
+    {
+      "id": "note-1",
+      "text": "确认入口门 2m 是否足够玩家带怪通过。",
+      "status": "open",
+      "targetId": "d_entry"
+    }
+  ]
+}

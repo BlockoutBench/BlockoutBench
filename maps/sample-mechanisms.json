@@ -1,0 +1,159 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "扩展样本 · 隔渊传信",
+    "subtitle": "演示机关扩展字段：baseHeight / walkable、states、links、doors.initial / height、openEdges、meta.proximity、meta.kindLegend",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 36, "maxZ": 16 },
+    "provenance": {
+      "kind": "design",
+      "label": "机关与状态样本 v1",
+      "source": "AI_MAP_SPEC.md",
+      "generatedAt": "2026-11-11"
+    },
+    "player": {
+      "radius": 0.35,
+      "height": 1.7,
+      "walkSpeed": 4,
+      "rollDistance": 3,
+      "rollDuration": 0.3,
+      "interactionRange": 2
+    },
+    "legendLabels": { "main": "主线" },
+    "kindLegend": {
+      "power-source": { "label": "电源台", "note": "信号源。交互取得一份信号。" },
+      "relay-pole": { "label": "信号塔", "note": "固定的信号中继节点。" },
+      "relay-crate": { "label": "中继箱", "note": "可推动的中继节点，沿轨道在几个卡位间移动。" },
+      "relay-lamp": { "label": "悬挂信号灯", "note": "悬空的中继节点，走不到。" },
+      "relay-receiver": { "label": "接收器", "note": "接收端。收到信号后保持激活。" },
+      "gate": { "label": "闸门", "note": "阻隔。关闭时挡路也挡信号。" },
+      "drone": { "label": "巡逻无人机", "note": "敌人，自身也能中继信号。" }
+    },
+    "proximity": [
+      {
+        "id": "arc",
+        "name": "信号链路",
+        "radius": 6,
+        "kinds": ["relay-pole", "relay-crate", "relay-lamp", "relay-receiver"],
+        "enemyTypes": ["drone"],
+        "lineOfSight": true
+      }
+    ],
+    "designNotes": [
+      "中继箱在北卡位时，信号塔 A 到悬挂信号灯的信号是断的；推到南卡位后，信号塔 A → 中继箱 → 悬挂信号灯 1 → 悬挂信号灯 2 → 信号塔 B → 接收器 1 连通。",
+      "接收器 1 收到信号后闸门打开，信号塔 B 到接收器 2 的遮挡消失；两个接收器都收到信号后宝库门打开。",
+      "主线中段横跨深渊，不是步行可达：玩家靠能力沿悬挂信号灯越过。路线只表达行进顺序。"
+    ]
+  },
+  "floors": [
+    { "id": "PIT", "name": "深渊底", "elevation": -6, "height": 6 },
+    { "id": "1F", "name": "1F 地面层", "elevation": 0, "height": 5 }
+  ],
+  "rooms": [
+    {
+      "id": "r_start",
+      "name": "起始殿",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e7dcc5",
+      "openEdges": [1],
+      "points": [[2, 2], [12, 2], [12, 14], [2, 14]],
+      "beat": "取得信号，推箱接通信号"
+    },
+    {
+      "id": "r_pit",
+      "name": "深渊",
+      "kind": "atrium",
+      "status": "planned",
+      "floorId": "PIT",
+      "color": "#c9c6bd",
+      "wallHeight": 0,
+      "points": [[12, 2], [20, 2], [20, 14], [12, 14]]
+    },
+    {
+      "id": "r_goal",
+      "name": "对岸殿",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#e2d8c5",
+      "openEdges": [3],
+      "points": [[20, 2], [28, 2], [28, 14], [20, 14]],
+      "beat": "先接通接收器 1 开闸门，再接通接收器 2"
+    },
+    {
+      "id": "r_vault",
+      "name": "宝库",
+      "kind": "room",
+      "status": "planned",
+      "floorId": "1F",
+      "color": "#dfe3cf",
+      "points": [[28, 5], [34, 5], [34, 11], [28, 11]],
+      "beat": "终点"
+    }
+  ],
+  "objects": [
+    { "id": "o_altar", "name": "电源台", "kind": "power-source", "floorId": "1F", "solid": true, "height": 0.6, "color": "#9fe6ea", "points": [[3.5, 3.5], [4.5, 3.5], [4.5, 4.5], [3.5, 4.5]] },
+    { "id": "o_pillar_a", "name": "信号塔 A", "kind": "relay-pole", "floorId": "1F", "solid": true, "height": 3, "color": "#c9a23a", "points": [[4.75, 7.75], [5.25, 7.75], [5.25, 8.25], [4.75, 8.25]] },
+    {
+      "id": "o_ding",
+      "name": "中继箱",
+      "kind": "relay-crate",
+      "floorId": "1F",
+      "solid": true,
+      "height": 1,
+      "color": "#c9a23a",
+      "points": [[9.5, 12.5], [10.5, 12.5], [10.5, 13.5], [9.5, 13.5]],
+      "initialState": "slot_n",
+      "states": [
+        { "id": "slot_n", "name": "北卡位", "points": [[9.5, 12.5], [10.5, 12.5], [10.5, 13.5], [9.5, 13.5]] },
+        { "id": "slot_s", "name": "南卡位", "points": [[9.5, 7.5], [10.5, 7.5], [10.5, 8.5], [9.5, 8.5]] }
+      ],
+      "note": "玩家沿轨道推动。"
+    },
+    { "id": "o_rail", "name": "中继箱导轨", "kind": "floor-inlay", "floorId": "1F", "solid": false, "color": "#6b5a3a", "points": [[9.8, 8], [10.2, 8], [10.2, 13], [9.8, 13]] },
+    { "id": "o_bell_1", "name": "悬挂信号灯 1", "kind": "relay-lamp", "floorId": "1F", "solid": false, "baseHeight": 2.5, "height": 1, "walkable": false, "color": "#c9a23a", "points": [[14.1, 7.6], [14.9, 7.6], [14.9, 8.4], [14.1, 8.4]] },
+    { "id": "o_bell_2", "name": "悬挂信号灯 2", "kind": "relay-lamp", "floorId": "1F", "solid": false, "baseHeight": 2.5, "height": 1, "walkable": false, "color": "#c9a23a", "points": [[17.1, 7.6], [17.9, 7.6], [17.9, 8.4], [17.1, 8.4]] },
+    { "id": "o_pillar_b", "name": "信号塔 B", "kind": "relay-pole", "floorId": "1F", "solid": true, "height": 3, "color": "#c9a23a", "points": [[21.75, 7.75], [22.25, 7.75], [22.25, 8.25], [21.75, 8.25]] },
+    { "id": "o_lock_1", "name": "接收器 1", "kind": "relay-receiver", "floorId": "1F", "solid": true, "height": 2, "color": "#6a4c93", "points": [[25.75, 11.25], [26.25, 11.25], [26.25, 11.75], [25.75, 11.75]] },
+    { "id": "o_lock_2", "name": "接收器 2", "kind": "relay-receiver", "floorId": "1F", "solid": true, "height": 2, "color": "#6a4c93", "points": [[25.25, 4.25], [25.75, 4.25], [25.75, 4.75], [25.25, 4.75]] },
+    {
+      "id": "o_gate",
+      "name": "闸门",
+      "kind": "gate",
+      "floorId": "1F",
+      "solid": true,
+      "height": 4,
+      "color": "#9a968c",
+      "points": [[23.25, 5], [24.75, 5], [24.75, 7], [23.25, 7]],
+      "initialState": "closed",
+      "states": [
+        { "id": "closed", "name": "关闭" },
+        { "id": "open", "name": "打开", "present": false }
+      ]
+    }
+  ],
+  "enemies": [
+    { "id": "e_guard", "name": "巡逻无人机", "enemyType": "drone", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_goal", "center": [25, 12.5] }
+  ],
+  "doors": [
+    { "id": "d_entry", "name": "入口", "floorId": "1F", "points": [[6, 2], [8, 2]], "width": 2 },
+    { "id": "d_vault", "name": "宝库门", "floorId": "1F", "points": [[28, 7], [28, 9]], "width": 2, "height": 3, "initial": "closed" }
+  ],
+  "links": [
+    { "id": "lk_gate", "name": "接收器 1 开闸门", "trigger": "activated", "from": ["o_lock_1"], "to": [{ "id": "o_gate", "state": "open" }] },
+    { "id": "lk_vault", "name": "双接收器开宝库门", "trigger": "activated", "require": "all", "from": ["o_lock_1", "o_lock_2"], "to": [{ "id": "d_vault", "state": "open" }] }
+  ],
+  "routes": [
+    {
+      "id": "main",
+      "name": "主线",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [[7, 3], [7, 6], [11.5, 6], [20.5, 6], [21, 10], [27, 8], [31, 8]],
+      "note": "中段 [11.5,6] → [20.5,6] 横跨深渊，靠能力越过。"
+    }
+  ],
+  "reviewNotes": []
+}

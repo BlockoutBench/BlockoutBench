@@ -1,0 +1,15 @@
+{
+  "patch": {
+    "upsertRooms": [
+      { "id": "r_north", "name": "北侧主厅（被AI误平移）", "kind": "gallery", "status": "planned", "floorId": "1F", "points": [[2.5, 10], [10.5, 10], [10.5, 20], [2.5, 20]] },
+      { "id": "r_safe", "name": "安全休整侧室", "kind": "rest", "floorId": "1F", "points": [[10, 3], [16, 3], [16, 9], [10, 9]] }
+    ],
+    "upsertDoors": [
+      { "id": "d_north", "name": "脱边北门（仍偏移0.4m）", "floorId": "1F", "points": [[5, 10.4], [7, 10.4]], "width": 2 },
+      { "id": "d_safe", "name": "侧室门", "floorId": "1F", "points": [[10, 5], [10, 7]], "width": 1.8 }
+    ],
+    "upsertObjects": [
+      { "id": "o_case_block", "name": "靠墙展柜", "kind": "display", "floorId": "1F", "solid": true, "points": [[8, 14], [10, 14], [10, 16], [8, 16]] }
+    ]
+  }
+}

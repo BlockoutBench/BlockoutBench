@@ -1,0 +1,35 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L1-02 仓储撤离 · Baseline Raw (挡路 + 掩体不足 + 无环路)",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 30, "maxZ": 30 },
+    "provenance": { "kind": "design", "label": "baseline-raw", "source": "L1-02", "generatedAt": "2026-11-13" },
+    "player": { "radius": 0.35, "height": 1.7, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [{ "id": "1F", "name": "1F", "elevation": 0, "height": 4.0 }],
+  "rooms": [
+    { "id": "r_dock", "name": "卸货区", "kind": "entry", "status": "planned", "floorId": "1F", "points": [[2, 2], [12, 2], [12, 10], [2, 10]] },
+    { "id": "r_store_a", "name": "A号货仓", "kind": "warehouse", "status": "planned", "floorId": "1F", "points": [[2, 10], [12, 10], [12, 20], [2, 20]] },
+    { "id": "r_store_b", "name": "B号盲端仓", "kind": "warehouse", "status": "planned", "floorId": "1F", "points": [[12, 10], [20, 10], [20, 18], [12, 18]] },
+    { "id": "r_office", "name": "调度盲端", "kind": "office", "status": "planned", "floorId": "1F", "points": [[2, 20], [10, 20], [10, 26], [2, 26]] },
+    { "id": "r_extract", "name": "北侧撤离闸口", "kind": "exit", "status": "planned", "floorId": "1F", "points": [[10, 20], [18, 20], [18, 26], [10, 26]] }
+  ],
+  "doors": [
+    { "id": "d_dock_a", "name": "A仓门", "floorId": "1F", "points": [[6, 10], [8, 10]], "width": 2.2 },
+    { "id": "d_a_b", "name": "B仓门", "floorId": "1F", "points": [[12, 13], [12, 15]], "width": 2.0 },
+    { "id": "d_a_off", "name": "调度门", "floorId": "1F", "points": [[5, 20], [7, 20]], "width": 1.8 },
+    { "id": "d_a_ext", "name": "撤离门", "floorId": "1F", "points": [[10.5, 20], [11.8, 20]], "width": 1.8 }
+  ],
+  "objects": [
+    { "id": "o_crate_block", "name": "挡路货箱", "kind": "supply", "floorId": "1F", "solid": true, "points": [[6, 14], [8, 14], [8, 16], [6, 16]] },
+    { "id": "o_pillar_b", "name": "B仓柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[15, 13], [16.5, 13], [16.5, 14.5], [15, 14.5]] }
+  ],
+  "enemies": [
+    { "id": "e_a1", "name": "仓管哨兵", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_store_a", "center": [4, 16] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "主线", "kind": "main", "floorId": "1F", "points": [[7, 5], [7, 18], [11, 23]] },
+    { "id": "rt_exit", "name": "撤离", "kind": "exit", "floorId": "1F", "points": [[7, 18], [14, 23]] }
+  ]
+}

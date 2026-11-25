@@ -1,0 +1,122 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L5-02 双阶联动要塞 · Assisted Relative",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 36, "maxZ": 36 },
+    "provenance": { "kind": "design", "label": "benchmark", "source": "L5-02", "generatedAt": "2026-11-15" },
+    "player": { "radius": 0.4, "height": 1.8, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [
+    { "id": "1F", "name": "1F 外庭与双翼机关厅", "elevation": 0, "height": 4.0 },
+    { "id": "2F", "name": "2F 上层中枢与L形Boss殿", "elevation": 4.0, "height": 3.8 }
+  ],
+  "rooms": [
+    { "id": "r_entry", "name": "南入口前庭", "kind": "entry", "floorId": "1F", "status": "planned", "points": [[13, 2], [23, 2], [23, 8], [13, 8]] },
+    { "id": "r_outer_hall", "name": "外殿中庭厅", "kind": "hall", "floorId": "1F", "status": "planned", "points": [[13, 8], [23, 8], [23, 16], [13, 16]] },
+    { "id": "r_west_forge", "name": "西侧锻炉室", "kind": "puzzle", "floorId": "1F", "status": "planned", "points": [[3, 8], [13, 8], [13, 16], [3, 16]] },
+    { "id": "r_east_bell", "name": "东侧钟塔室", "kind": "puzzle", "floorId": "1F", "status": "planned", "points": [[23, 8], [33, 8], [33, 16], [23, 16]] },
+    { "id": "r_inner_court", "name": "内院升降厅", "kind": "hall", "floorId": "1F", "status": "planned", "points": [[13, 16], [23, 16], [23, 24], [13, 24]] },
+    { "id": "r_east_shortcut", "name": "东侧捷径廊", "kind": "corridor", "floorId": "1F", "status": "planned", "points": [[23, 16], [33, 16], [33, 24], [23, 24]] },
+    { "id": "r_2f_gallery", "name": "二层俯瞰廊", "kind": "gallery", "floorId": "2F", "status": "planned", "openEdges": [0], "points": [[13, 20], [23, 20], [23, 24], [13, 24]] },
+    { "id": "r_2f_relay", "name": "二层中继机关厅", "kind": "puzzle", "floorId": "2F", "status": "planned", "points": [[5, 16], [13, 16], [13, 24], [5, 24]] },
+    { "id": "r_2f_sanctum", "name": "二层L形Boss圣殿", "kind": "boss", "floorId": "2F", "status": "planned", "points": [[13, 24], [25, 24], [25, 32], [10, 32], [10, 26], [13, 26]] }
+  ],
+  "doors": [
+    { "id": "d_entry", "name": "前庭门", "floorId": "1F", "points": [[17, 8], [19, 8]], "width": 2.2 },
+    { "id": "d_west", "name": "锻炉门", "floorId": "1F", "points": [[13, 11], [13, 13]], "width": 2.0 },
+    { "id": "d_east", "name": "钟塔封门", "floorId": "1F", "points": [[23, 11], [23, 13]], "width": 2.0, "initial": "closed" },
+    { "id": "d_inner", "name": "内院双锁石门", "floorId": "1F", "points": [[17, 16], [19, 16]], "width": 2.2, "initial": "closed" },
+    { "id": "d_shortcut_1", "name": "东廊捷径门A", "floorId": "1F", "points": [[27, 16], [29, 16]], "width": 2.0 },
+    { "id": "d_shortcut_2", "name": "东廊捷径门B", "floorId": "1F", "points": [[23, 19], [23, 21]], "width": 2.0, "initial": "closed" },
+    { "id": "d_2f_relay", "name": "中继门", "floorId": "2F", "points": [[13, 21], [13, 23]], "width": 2.0 },
+    { "id": "d_sanctum", "name": "圣殿封印门", "floorId": "2F", "points": [[17, 24], [19, 24]], "width": 2.4, "initial": "closed" }
+  ],
+  "stairs": [
+    { "id": "st_up_2f", "name": "内院登二层阶梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "W", "points": [[14.5, 20.5], [19.5, 20.5], [19.5, 23.5], [14.5, 23.5]] },
+    { "id": "st_shortcut_2f", "name": "东侧登台备梯", "fromFloorId": "1F", "toFloorId": "2F", "bottom": "E", "points": [[20.5, 20.5], [22.5, 20.5], [22.5, 23.5], [20.5, 23.5]] }
+  ],
+  "objects": [
+    { "id": "o_entry_plinth", "name": "前庭石碑", "kind": "altar", "floorId": "1F", "solid": true, "points": [[14, 3], [15.5, 3], [15.5, 4.5], [14, 4.5]] },
+    { "id": "o_outer_col_w", "name": "外殿西柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[15, 9.2], [16.2, 9.2], [16.2, 10.4], [15, 10.4]] },
+    { "id": "o_forge_anvil", "name": "锻炉掩体台", "kind": "cover", "floorId": "1F", "solid": true, "height": 1.1, "points": [[8, 9.5], [9.8, 9.5], [9.8, 11], [8, 11]] },
+    { "id": "o_lever_1", "name": "锻炉一号拉杆", "kind": "interaction", "floorId": "1F", "solid": false, "points": [[4.5, 12], [6, 12], [6, 13.5], [4.5, 13.5]] },
+    { "id": "o_bell_col", "name": "钟塔石柱", "kind": "column", "floorId": "1F", "solid": true, "points": [[26.5, 13], [27.8, 13], [27.8, 14.3], [26.5, 14.3]] },
+    { "id": "o_lever_2", "name": "钟塔二号共鸣钟", "kind": "interaction", "floorId": "1F", "solid": false, "points": [[29.5, 11.5], [31, 11.5], [31, 13], [29.5, 13]] },
+    { "id": "o_shortcut_chest", "name": "捷径廊补给箱", "kind": "loot", "floorId": "1F", "solid": true, "height": 0.8, "points": [[27.5, 21.5], [29, 21.5], [29, 23], [27.5, 23]] },
+    {
+      "id": "o_inner_gate",
+      "name": "内院重型石闸",
+      "kind": "stone-gate",
+      "floorId": "1F",
+      "height": 4.0,
+      "initialState": "sealed",
+      "states": [
+        { "id": "sealed", "label": "关闭", "solid": true, "present": true },
+        { "id": "open", "label": "开启", "solid": false, "present": false }
+      ],
+      "points": [[16.5, 15.7], [19.5, 15.7], [19.5, 16.3], [16.5, 16.3]]
+    },
+    { "id": "o_relay_col", "name": "中继厅石柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[9, 18], [10.2, 18], [10.2, 19.2], [9, 19.2]] },
+    { "id": "o_relay_core", "name": "二层中枢核心开关", "kind": "interaction", "floorId": "2F", "solid": false, "points": [[6.5, 19.5], [8, 19.5], [8, 21], [6.5, 21]] },
+    {
+      "id": "o_sanctum_gate",
+      "name": "圣殿重石闸",
+      "kind": "stone-gate",
+      "floorId": "2F",
+      "height": 3.8,
+      "initialState": "sealed",
+      "states": [
+        { "id": "sealed", "label": "封锁", "solid": true, "present": true },
+        { "id": "open", "label": "开启", "solid": false, "present": false }
+      ],
+      "points": [[16.5, 23.7], [19.5, 23.7], [19.5, 24.3], [16.5, 24.3]]
+    },
+    { "id": "o_boss_col_1", "name": "圣殿左柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[15, 26.5], [16.2, 26.5], [16.2, 27.7], [15, 27.7]] },
+    { "id": "o_boss_col_2", "name": "圣殿右柱", "kind": "column", "floorId": "2F", "solid": true, "points": [[21.5, 26.5], [22.7, 26.5], [22.7, 27.7], [21.5, 27.7]] },
+    {
+      "id": "o_boss_chest",
+      "name": "圣殿王座宝箱",
+      "kind": "loot",
+      "floorId": "2F",
+      "solid": true,
+      "height": 0.9,
+      "initialState": "locked",
+      "states": [
+        { "id": "locked", "label": "上锁", "solid": true, "present": true },
+        { "id": "open", "label": "解锁", "solid": true, "present": true }
+      ],
+      "points": [[11, 29.5], [12.5, 29.5], [12.5, 31], [11, 31]]
+    }
+  ],
+  "links": [
+    { "id": "lk_east_door", "name": "一号拉杆解锁东侧钟塔", "trigger": "activated", "require": "all", "from": ["o_lever_1"], "to": [{ "id": "d_east", "state": "open" }] },
+    { "id": "lk_shortcut", "name": "二号共鸣钟打开东廊捷径", "trigger": "activated", "require": "all", "from": ["o_lever_2"], "to": [{ "id": "d_shortcut_2", "state": "open" }] },
+    { "id": "lk_inner_gate", "name": "双机关开启内院重门", "trigger": "activated", "require": "all", "from": ["o_lever_1", "o_lever_2"], "to": [{ "id": "d_inner", "state": "open" }, { "id": "o_inner_gate", "state": "open" }] },
+    { "id": "lk_sanctum_seal", "name": "二层核心解锁圣殿", "trigger": "activated", "require": "all", "from": ["o_relay_core"], "to": [{ "id": "d_sanctum", "state": "open" }, { "id": "o_sanctum_gate", "state": "open" }] },
+    { "id": "lk_boss_chest", "name": "击败守卫开启宝箱", "trigger": "defeated", "require": "all", "from": ["e_citadel_boss"], "to": [{ "id": "o_boss_chest", "state": "open" }] }
+  ],
+  "enemies": [
+    { "id": "e_hall", "name": "外殿热身兵", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_outer_hall", "center": [19.5, 11.5] },
+    { "id": "e_west", "name": "锻炉守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_west_forge", "center": [5.5, 9.5] },
+    { "id": "e_east", "name": "钟塔哨兵", "enemyType": "ranged", "tier": "normal", "branch": "optional", "floorId": "1F", "roomId": "r_east_bell", "center": [30, 9.5] },
+    { "id": "e_relay", "name": "中继精英卫", "enemyType": "elite", "tier": "elite", "branch": "main", "floorId": "2F", "roomId": "r_2f_relay", "center": [7, 17.5] },
+    { "id": "e_citadel_boss", "name": "要塞统领", "enemyType": "boss", "tier": "boss", "branch": "main", "floorId": "2F", "roomId": "r_2f_sanctum", "center": [18.5, 29.5] }
+  ],
+  "routes": [
+    {
+      "id": "rt_main",
+      "name": "双阶解谜主线",
+      "kind": "main",
+      "floorId": "1F",
+      "points": [[18, 4, 0], [18, 12, 0], [13, 12, 0], [6, 12.5, 0], [13, 12, 0], [23, 12, 0], [30, 12, 0], [28, 16, 0], [28, 20, 0], [23, 20, 0], [18, 18.5, 0], [14.5, 22, 0], [19.5, 22, 4.0], [13, 22, 4.0], [7.5, 20.2, 4.0], [13, 22, 4.0], [18, 22, 4.0], [18, 29, 4.0]]
+    },
+    {
+      "id": "rt_opt_shortcut",
+      "name": "东廊宝箱捷径线",
+      "kind": "optional",
+      "floorId": "1F",
+      "points": [[28, 15, 0], [28, 20.5, 0]]
+    }
+  ]
+}

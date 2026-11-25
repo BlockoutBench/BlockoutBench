@@ -1,0 +1,24 @@
+{
+  "_comment": "Optional asset replacement table for tools/ue_import_whitebox.py. Keep out of AI_MAP_SPEC JSON; tune per UE project to compensate mesh pivots, facing yaw, and doorway collision.",
+  "column": {
+    "assetPath": "/Game/Environment/Whitebox/SM_Column_Placeholder",
+    "pivotOffsetCm": [0, 0, 0],
+    "yawOffsetDeg": 0,
+    "collisionProfile": "BlockAll",
+    "fitToBox": true
+  },
+  "altar": {
+    "assetPath": "/Game/Props/Generic/SM_Altar",
+    "pivotOffsetCm": [0, 0, 0],
+    "yawOffsetDeg": 0,
+    "collisionProfile": "BlockAll",
+    "fitToBox": true
+  },
+  "doorFrame": {
+    "assetPath": "/Game/Architecture/Doors/SM_DoorFrame_Standard",
+    "pivotOffsetCm": [0, 0, 0],
+    "yawOffsetDeg": 0,
+    "collisionProfile": "BlockAll",
+    "requireHollowOpening": true
+  }
+}

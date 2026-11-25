@@ -1,0 +1,11 @@
+{
+  "patch": {
+    "upsertRooms": [
+      { "id": "r_east_hall", "name": "东翼长廊（误改原图坐标）", "kind": "gallery", "status": "planned", "floorId": "1F", "points": [[22, 9], [33, 9], [33, 19], [22, 19]] },
+      { "id": "r_vault_l", "name": "矩形凑数侧室", "kind": "vault", "status": "planned", "floorId": "1F", "points": [[2, 8], [8, 8], [8, 16], [2, 16]] }
+    ],
+    "upsertDoors": [
+      { "id": "d_vault_l", "name": "秘室门", "floorId": "1F", "points": [[8, 11], [8, 13]], "width": 2.0 }
+    ]
+  }
+}

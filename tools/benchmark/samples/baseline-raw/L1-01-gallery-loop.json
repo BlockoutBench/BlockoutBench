@@ -1,0 +1,32 @@
+{
+  "schemaVersion": 1,
+  "meta": {
+    "title": "L1-01 展馆回环 · Baseline Raw (缺回环 + 门脱边)",
+    "units": "m",
+    "bounds": { "minX": 0, "minZ": 0, "maxX": 30, "maxZ": 30 },
+    "provenance": { "kind": "design", "label": "baseline-raw", "source": "L1-01", "generatedAt": "2026-11-13" },
+    "player": { "radius": 0.35, "height": 1.7, "walkSpeed": 4, "rollDistance": 3, "rollDuration": 0.3, "interactionRange": 2 }
+  },
+  "floors": [{ "id": "1F", "name": "1F", "elevation": 0, "height": 3.6 }],
+  "rooms": [
+    { "id": "r_entry", "name": "入口门厅", "kind": "entry", "status": "planned", "floorId": "1F", "points": [[2, 2], [10, 2], [10, 10], [2, 10]] },
+    { "id": "r_main", "name": "中央展厅", "kind": "gallery", "status": "planned", "floorId": "1F", "points": [[2, 10], [10, 10], [10, 18], [2, 18]] },
+    { "id": "r_wing", "name": "东翼盲端廊", "kind": "corridor", "status": "planned", "floorId": "1F", "points": [[10, 10], [18, 10], [18, 18], [10, 18]] },
+    { "id": "r_exit", "name": "离场廊", "kind": "exit", "status": "planned", "floorId": "1F", "points": [[2, 18], [10, 18], [10, 24], [2, 24]] }
+  ],
+  "doors": [
+    { "id": "d_entry_main", "name": "正门", "floorId": "1F", "points": [[5, 10.6], [7, 10.6]], "width": 2 },
+    { "id": "d_main_wing", "name": "东翼门", "floorId": "1F", "points": [[10, 13], [10, 15]], "width": 1.8 },
+    { "id": "d_main_exit", "name": "离场门", "floorId": "1F", "points": [[5, 18], [7, 18]], "width": 2 }
+  ],
+  "objects": [
+    { "id": "o_altar", "name": "中央展台", "kind": "altar", "floorId": "1F", "solid": true, "points": [[4, 13], [6, 13], [6, 15], [4, 15]] }
+  ],
+  "enemies": [
+    { "id": "e_main", "name": "展厅守卫", "enemyType": "melee", "tier": "normal", "branch": "main", "floorId": "1F", "roomId": "r_main", "center": [8, 15] }
+  ],
+  "routes": [
+    { "id": "rt_main", "name": "主线", "kind": "main", "floorId": "1F", "points": [[6, 5], [7, 15], [6, 21]] },
+    { "id": "rt_opt", "name": "东翼折返", "kind": "optional", "floorId": "1F", "points": [[7, 14], [14, 14]] }
+  ]
+}
